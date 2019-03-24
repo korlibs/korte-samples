@@ -25,6 +25,7 @@
   var Map = Kotlin.kotlin.collections.Map;
   var throwCCE = Kotlin.throwCCE;
   var listOf = Kotlin.kotlin.collections.listOf_mh5how$;
+  var lastOrNull = Kotlin.kotlin.collections.lastOrNull_2p1efm$;
   var Kind_CLASS = Kotlin.Kind.CLASS;
   var Kind_OBJECT = Kotlin.Kind.OBJECT;
   var Kind_INTERFACE = Kotlin.Kind.INTERFACE;
@@ -51,8 +52,9 @@
   var takeLast = Kotlin.kotlin.collections.takeLast_yzln2o$;
   var toMap = Kotlin.kotlin.collections.toMap_6hr0sd$;
   var Throwable = Error;
-  var contains = Kotlin.kotlin.collections.contains_mjy6jw$;
   var joinToString_0 = Kotlin.kotlin.collections.joinToString_cgipc5$;
+  var contains = Kotlin.kotlin.collections.contains_mjy6jw$;
+  var last = Kotlin.kotlin.collections.last_2p1efm$;
   var RuntimeException_init = Kotlin.kotlin.RuntimeException_init_pdl1vj$;
   var toDouble = Kotlin.kotlin.text.toDouble_pdl1vz$;
   var toIntOrNull = Kotlin.kotlin.text.toIntOrNull_pdl1vz$;
@@ -117,7 +119,7 @@
   var repeat = Kotlin.kotlin.text.repeat_94bcnn$;
   var isWhitespace = Kotlin.kotlin.text.isWhitespace_myv2d0$;
   var replace = Kotlin.kotlin.text.replace_680rmw$;
-  var last = Kotlin.kotlin.collections.last_2p1efm$;
+  var emptyList = Kotlin.kotlin.collections.emptyList_287e2$;
   var Continuation = Kotlin.kotlin.coroutines.Continuation;
   var startCoroutine = Kotlin.kotlin.coroutines.startCoroutine_x18nsh$;
   KorteException.prototype = Object.create(RuntimeException.prototype);
@@ -134,6 +136,8 @@
   Token$TExpr.prototype.constructor = Token$TExpr;
   Token$TTag.prototype = Object.create(Token.prototype);
   Token$TTag.prototype.constructor = Token$TTag;
+  ListReader$OutOfBoundsException.prototype = Object.create(RuntimeException.prototype);
+  ListReader$OutOfBoundsException.prototype.constructor = ListReader$OutOfBoundsException;
   JsObjectMapper2.prototype = Object.create(ObjectMapper2.prototype);
   JsObjectMapper2.prototype.constructor = JsObjectMapper2;
   function Block() {
@@ -148,7 +152,7 @@
   function Block$Companion$Parse(tokens, parseContext) {
     this.tokens = tokens;
     this.parseContext = parseContext;
-    this.tr = new ListReader(this.tokens);
+    this.tr = new ListReader(this.tokens, lastOrNull(this.tokens));
   }
   function Block$Companion$Parse$handle$emitPart(closure$parts, closure$currentToken, closure$children) {
     return function () {
@@ -2736,6 +2740,7 @@
             var name = ExprNode$Companion_getInstance().parseId_144v2j$(tokens);
             if (name.length === 0)
               throw IllegalArgumentException_init('block without name');
+            expectEnd(tokens);
             this.local$$receiver.context.template.addBlock_x5ctsa$(name, part.body);
             return new DefaultBlocks$BlockBlock(name);
           case 1:
@@ -2784,6 +2789,7 @@
             var main = this.local$$receiver.chunks.get_za3lpa$(0);
             var tr = main.tag.tokens;
             var varname = ExprNode$Companion_getInstance().parseId_144v2j$(tr);
+            expectEnd(tr);
             return new DefaultBlocks$BlockCapture(varname, main.body);
           case 1:
             throw this.exception_0;
@@ -2986,6 +2992,7 @@
              while (tryRead(tr, [',']) != null);
             ExprNode$Companion_getInstance().expect_z9we0s$(tr, ['in']);
             var expr = ExprNode$Companion_getInstance().parseExpr_144v2j$(tr);
+            expectEnd(tr);
             return new DefaultBlocks$BlockFor(varnames, expr, main.body, elseTag);
           case 1:
             throw this.exception_0;
@@ -3105,6 +3112,7 @@
             var file = parseExpr(s);
             expect(s, ['as']);
             var name = s.read().text;
+            expectEnd(s);
             return new DefaultBlocks$BlockImport(file, name);
           case 1:
             throw this.exception_0;
@@ -3201,6 +3209,7 @@
             expect(s, ['(']);
             var params = parseIdList(s);
             expect(s, [')']);
+            expectEnd(s);
             return new DefaultBlocks$BlockMacro(funcname, params, part.body);
           case 1:
             throw this.exception_0;
@@ -3250,6 +3259,7 @@
             var varname = ExprNode$Companion_getInstance().parseId_144v2j$(tr);
             ExprNode$Companion_getInstance().expect_z9we0s$(tr, ['=']);
             var expr = ExprNode$Companion_getInstance().parseExpr_144v2j$(tr);
+            expectEnd(tr);
             return new DefaultBlocks$BlockSet(varname, expr);
           case 1:
             throw this.exception_0;
@@ -4576,35 +4586,53 @@
   };
   ExprNode$Companion.prototype.parse_3atvy$ = function (str, context) {
     var tokens = ExprNode$Token$Companion_getInstance().tokenize_3atvy$(str, context);
-    if (tokens.list.isEmpty() || Kotlin.isType(first(tokens.list), ExprNode$Token$TEnd)) {
+    if (tokens.list.isEmpty())
       context.exception_61zpoe$('No expression');
-    }
-    return ExprNode$Companion_getInstance().parseFullExpr_144v2j$(tokens);
+    var $receiver = ExprNode$Companion_getInstance().parseFullExpr_144v2j$(tokens);
+    expectEnd(tokens);
+    return $receiver;
   };
   ExprNode$Companion.prototype.parseId_144v2j$ = function (r) {
-    return r.read().text;
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
+    var tmp$_4;
+    if ((tmp$_3 = (tmp$_2 = (tmp$ = r.tryRead()) != null ? tmp$.text : null) != null ? tmp$_2 : (tmp$_1 = (tmp$_0 = r.tryPrev()) != null ? tmp$_0 : r.ctx) != null ? tmp$_1.exception_61zpoe$('Expected id') : null) != null)
+      tmp$_4 = tmp$_3;
+    else {
+      throw new NotImplementedError_init();
+    }
+    return tmp$_4;
   };
   ExprNode$Companion.prototype.expect_z9we0s$ = function (r, tokens) {
-    var token = r.read();
+    var tmp$;
+    var token = (tmp$ = r.tryRead()) != null ? tmp$ : r.prevOrContext().exception_61zpoe$('Expected ' + joinToString_0(tokens, ', ') + ' but found end');
     if (!contains(tokens, token.text))
       token.exception_61zpoe$('Expected ' + joinToString_0(tokens, ', ') + ' but found ' + token);
   };
   ExprNode$Companion.prototype.parseFullExpr_144v2j$ = function (r) {
-    var result = ExprNode$Companion_getInstance().parseExpr_144v2j$(r);
-    if (r.hasMore && !Kotlin.isType(r.peek(), ExprNode$Token$TEnd)) {
-      var tmp$ = r.peek();
-      var tmp$_0 = 'Expected expression at ' + toString(r.peek()) + ' :: ';
-      var $receiver = r.list;
-      var destination = ArrayList_init_0(collectionSizeOrDefault($receiver, 10));
-      var tmp$_1;
-      tmp$_1 = $receiver.iterator();
-      while (tmp$_1.hasNext()) {
-        var item = tmp$_1.next();
-        destination.add_11rb$(item.text);
+    try {
+      var result = ExprNode$Companion_getInstance().parseExpr_144v2j$(r);
+      if (r.hasMore) {
+        var tmp$ = r.peek();
+        var tmp$_0 = 'Expected expression at ' + toString(r.peek()) + ' :: ';
+        var $receiver = r.list;
+        var destination = ArrayList_init_0(collectionSizeOrDefault($receiver, 10));
+        var tmp$_1;
+        tmp$_1 = $receiver.iterator();
+        while (tmp$_1.hasNext()) {
+          var item = tmp$_1.next();
+          destination.add_11rb$(item.text);
+        }
+        tmp$.exception_61zpoe$(tmp$_0 + joinToString(destination, ''));
       }
-      tmp$.exception_61zpoe$(tmp$_0 + joinToString(destination, ''));
+      return result;
     }
-    return result;
+     catch (e) {
+      if (Kotlin.isType(e, ListReader$OutOfBoundsException)) {
+        last(r.list).exception_61zpoe$('Incomplete expression');
+      }
+       else
+        throw e;
+    }
   };
   ExprNode$Companion.prototype.binopPr_61zpoe$ = function (str) {
     var tmp$;
@@ -4639,12 +4667,14 @@
   };
   ExprNode$Companion.prototype.parseTernaryExpr_144v2j$ = function (r) {
     var left = this.parseBinExpr_144v2j$(r);
-    if (equals(r.peek().text, '?')) {
-      r.skip_za3lpa$();
-      var middle = this.parseExpr_144v2j$(r);
-      expect(r, [':']);
-      var right = this.parseExpr_144v2j$(r);
-      left = new ExprNode$TERNARY(left, middle, right);
+    if (r.hasMore) {
+      if (equals(r.peek().text, '?')) {
+        r.skip_za3lpa$();
+        var middle = this.parseExpr_144v2j$(r);
+        expect(r, [':']);
+        var right = this.parseExpr_144v2j$(r);
+        left = new ExprNode$TERNARY(left, middle, right);
+      }
     }
     return left;
   };
@@ -4652,7 +4682,9 @@
     return this.parseTernaryExpr_144v2j$(r);
   };
   ExprNode$Companion.prototype.parseFinal_0 = function (r) {
-    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6;
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6, tmp$_7, tmp$_8;
+    if (!r.hasMore)
+      r.prevOrContext().exception_61zpoe$('Expected expression');
     var tok = r.peek().text.toUpperCase();
     switch (tok) {
       case '!':
@@ -4759,7 +4791,7 @@
           break;
         case '|':
           var tok_0 = r.read();
-          var name = r.read().text;
+          var name = (tmp$_8 = (tmp$_7 = r.tryRead()) != null ? tmp$_7.text : null) != null ? tmp$_8 : '';
           var args = ArrayList_init();
           if (name.length === 0)
             tok_0.exception_61zpoe$('Missing filter name');
@@ -5105,10 +5137,14 @@
     ExprNode$Token$Companion_instance = this;
     this.OPERATORS_0 = setOf(['(', ')', '[', ']', '{', '}', '&&', '||', '&', '|', '^', '==', '!=', '<', '>', '<=', '>=', '<=>', '?:', '..', '+', '-', '*', '/', '%', '**', '!', '~', '.', ',', ';', ':', '?', '=']);
   }
-  function ExprNode$Token$Companion$tokenize$emit(closure$context, closure$out) {
+  ExprNode$Token$Companion.prototype.annotate_pn9c5i$ = function ($receiver, context, tpos) {
+    $receiver.pos = context.pos + tpos | 0;
+    $receiver.file = context.file;
+    return $receiver;
+  };
+  function ExprNode$Token$Companion$tokenize$emit(closure$context, this$Token$, closure$out) {
     return function (str, tpos) {
-      str.pos = closure$context.pos + tpos | 0;
-      str.file = closure$context.file;
+      this$Token$.annotate_pn9c5i$(str, closure$context, tpos);
       closure$out.add_11rb$(str);
     };
   }
@@ -5116,7 +5152,7 @@
     var tmp$;
     var r = new StrReader(str);
     var out = ArrayList_init();
-    var emit = ExprNode$Token$Companion$tokenize$emit(context, out);
+    var emit = ExprNode$Token$Companion$tokenize$emit(context, this, out);
     while (r.hasMore) {
       var start = r.pos;
       r.skipSpaces();
@@ -5151,8 +5187,7 @@
       }
     }
     var dstart_0 = r.pos;
-    emit(new ExprNode$Token$TEnd(), dstart_0);
-    return new ListReader(out);
+    return new ListReader(out, this.annotate_pn9c5i$(new ExprNode$Token$TEnd(), context, dstart_0));
   };
   ExprNode$Token$Companion.$metadata$ = {
     kind: Kind_OBJECT,
@@ -5176,6 +5211,10 @@
     simpleName: 'ExprNode',
     interfaces: [DynamicContext]
   };
+  function expectEnd($receiver) {
+    if ($receiver.hasMore)
+      $receiver.peek().exception_61zpoe$('Unexpected token');
+  }
   function tryRead($receiver, types) {
     var token = $receiver.peek();
     if (contains(types, token.text)) {
@@ -5217,7 +5256,6 @@
     this.name = name;
     this.eval = eval_0;
   }
-  var emptyList = Kotlin.kotlin.collections.emptyList_287e2$;
   function Filter$Ctx() {
     this.context_22cdul$_0 = this.context_22cdul$_0;
     this.subject = null;
@@ -9775,10 +9813,10 @@
     this.TRACE = false;
   }
   Yaml.prototype.decode_61zpoe$ = function (str) {
-    return this.read_0(new ListReader(this.tokenize_ut4i55$(new StrReader(str))), 0);
+    return this.read_0(new ListReader(this.tokenize_ut4i55$(new StrReader(str)), null), 0);
   };
   Yaml.prototype.read_61zpoe$ = function (str) {
-    return this.read_0(new ListReader(this.tokenize_ut4i55$(new StrReader(str))), 0);
+    return this.read_0(new ListReader(this.tokenize_ut4i55$(new StrReader(str)), null), 0);
   };
   Yaml.prototype.parseStr_1 = function (tok) {
     if (Kotlin.isType(tok, Yaml$Token$STR))
@@ -10249,16 +10287,20 @@
   };
   KorteDeferred.prototype.resolveIfRequired_0 = function () {
     var tmp$;
-    if (!this.continuations_0.isEmpty()) {
-      var result = this.result_0;
-      if (result != null) {
-        var copy = toList(this.continuations_0);
+    var result = this.result_0;
+    if (result != null) {
+      var tmp$_0;
+      if (this.continuations_0.isEmpty())
+        tmp$_0 = emptyList();
+      else {
+        var $receiver = toList(this.continuations_0);
         this.continuations_0.clear();
-        tmp$ = copy.iterator();
-        while (tmp$.hasNext()) {
-          var v = tmp$.next();
-          v.resumeWith_tl1gpc$(result);
-        }
+        tmp$_0 = $receiver;
+      }
+      tmp$ = tmp$_0.iterator();
+      while (tmp$.hasNext()) {
+        var v = tmp$.next();
+        v.resumeWith_tl1gpc$(result);
       }
     }
   };
@@ -10322,10 +10364,22 @@
     simpleName: 'KorteDeferred',
     interfaces: []
   };
-  function ListReader(list) {
+  function ListReader(list, ctx) {
     this.list = list;
+    this.ctx = ctx;
     this.position = 0;
   }
+  function ListReader$OutOfBoundsException(list, pos) {
+    RuntimeException_init_0(this);
+    this.list = list;
+    this.pos = pos;
+    this.name = 'ListReader$OutOfBoundsException';
+  }
+  ListReader$OutOfBoundsException.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'OutOfBoundsException',
+    interfaces: [RuntimeException]
+  };
   Object.defineProperty(ListReader.prototype, 'size', {
     get: function () {
       return this.list.size;
@@ -10342,7 +10396,12 @@
     }
   });
   ListReader.prototype.peek = function () {
-    return this.list.get_za3lpa$(this.position);
+    var tmp$;
+    tmp$ = getOrNull(this.list, this.position);
+    if (tmp$ == null) {
+      throw new ListReader$OutOfBoundsException(this, this.position);
+    }
+    return tmp$;
   };
   ListReader.prototype.skip_za3lpa$ = function (count) {
     if (count === void 0)
@@ -10355,6 +10414,28 @@
     this.skip_za3lpa$(1);
     return $receiver;
   };
+  ListReader.prototype.tryPrev = function () {
+    return getOrNull(this.list, this.position - 1 | 0);
+  };
+  ListReader.prototype.prev = function () {
+    var tmp$;
+    tmp$ = this.tryPrev();
+    if (tmp$ == null) {
+      throw new ListReader$OutOfBoundsException(this, this.position - 1 | 0);
+    }
+    return tmp$;
+  };
+  ListReader.prototype.tryRead = function () {
+    return this.hasMore ? this.read() : null;
+  };
+  ListReader.prototype.prevOrContext = function () {
+    var tmp$, tmp$_0;
+    tmp$_0 = (tmp$ = this.tryPrev()) != null ? tmp$ : this.ctx;
+    if (tmp$_0 == null) {
+      throw new NotImplementedError_init('An operation is not implemented: ' + 'Context not defined');
+    }
+    return tmp$_0;
+  };
   ListReader.prototype.toString = function () {
     return 'ListReader(' + this.list + ')';
   };
@@ -10363,25 +10444,6 @@
     simpleName: 'ListReader',
     interfaces: []
   };
-  function reader($receiver) {
-    return new ListReader($receiver);
-  }
-  function expect_0($receiver, value) {
-    var v = $receiver.read();
-    if (!equals(v, value)) {
-      throw IllegalStateException_init(("Expecting '" + value + "' but found '" + v + "'").toString());
-    }
-    return v;
-  }
-  function dump($receiver) {
-    var tmp$;
-    println('ListReader:');
-    tmp$ = $receiver.list.iterator();
-    while (tmp$.hasNext()) {
-      var item = tmp$.next();
-      println(' - ' + item);
-    }
-  }
   function JsObjectMapper2() {
     ObjectMapper2.call(this);
   }
@@ -10578,6 +10640,7 @@
   });
   ExprNode.Token = ExprNode$Token;
   package$korte.ExprNode = ExprNode;
+  package$korte.expectEnd_yk6r7o$ = expectEnd;
   package$korte.tryRead_ypora7$ = tryRead;
   package$korte.expectPeek_ypora7$ = expectPeek;
   package$korte.expect_ypora7$ = expect;
@@ -10697,10 +10760,8 @@
     get: KorteDeferred$Companion_getInstance
   });
   package$util.KorteDeferred = KorteDeferred;
+  ListReader.OutOfBoundsException = ListReader$OutOfBoundsException;
   package$util.ListReader = ListReader;
-  package$util.reader_2p1efm$ = reader;
-  package$util.expect_kg3eel$ = expect_0;
-  package$util.dump_e7u9n7$ = dump;
   package$dynamic.JsObjectMapper2 = JsObjectMapper2;
   Object.defineProperty(package$dynamic, 'Mapper2', {
     get: function () {
@@ -10953,33 +11014,33 @@
   Filter$Ctx.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
   Filter$Ctx.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
   Filter$Ctx.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
-  Tag.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
-  Tag.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
-  Tag.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
-  Tag.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
-  Tag.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
+  Tag.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
   Tag.prototype.toDynamicBool_mzud1t$ = DynamicContext.prototype.toDynamicBool_mzud1t$;
   Tag.prototype.toDynamicInt_mzud1t$ = DynamicContext.prototype.toDynamicInt_mzud1t$;
   Tag.prototype.toDynamicList_mzud1t$ = DynamicContext.prototype.toDynamicList_mzud1t$;
-  Tag.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
-  Template$Scope.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
-  Template$Scope.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
-  Template$Scope.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
-  Template$Scope.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
-  Template$Scope.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
+  Tag.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
+  Tag.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
+  Tag.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
+  Tag.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
+  Tag.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
+  Template$Scope.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
   Template$Scope.prototype.toDynamicBool_mzud1t$ = DynamicContext.prototype.toDynamicBool_mzud1t$;
   Template$Scope.prototype.toDynamicInt_mzud1t$ = DynamicContext.prototype.toDynamicInt_mzud1t$;
   Template$Scope.prototype.toDynamicList_mzud1t$ = DynamicContext.prototype.toDynamicList_mzud1t$;
-  Template$Scope.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
-  Template$EvalContext.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
-  Template$EvalContext.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
-  Template$EvalContext.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
-  Template$EvalContext.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
-  Template$EvalContext.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
+  Template$Scope.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
+  Template$Scope.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
+  Template$Scope.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
+  Template$Scope.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
+  Template$Scope.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
+  Template$EvalContext.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
   Template$EvalContext.prototype.toDynamicBool_mzud1t$ = DynamicContext.prototype.toDynamicBool_mzud1t$;
   Template$EvalContext.prototype.toDynamicInt_mzud1t$ = DynamicContext.prototype.toDynamicInt_mzud1t$;
   Template$EvalContext.prototype.toDynamicList_mzud1t$ = DynamicContext.prototype.toDynamicList_mzud1t$;
-  Template$EvalContext.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
+  Template$EvalContext.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
+  Template$EvalContext.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
+  Template$EvalContext.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
+  Template$EvalContext.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
+  Template$EvalContext.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
   Object.defineProperty(TokenContext$Mixin.prototype, 'posContext', Object.getOwnPropertyDescriptor(TokenContext.prototype, 'posContext'));
   TokenContext$Mixin.prototype.exception_61zpoe$ = TokenContext.prototype.exception_61zpoe$;
   Object.defineProperty(Token.prototype, 'posContext', Object.getOwnPropertyDescriptor(TokenContext.prototype, 'posContext'));
@@ -10998,7 +11059,7 @@
   debugPrintln = new extraProperty(debugPrintln$lambda, void 0, debugPrintln$lambda_0);
   formatRegex = Regex_init('%([-]?\\d+)?(\\w)');
   charToEntity = linkedMapOf([to(toBoxedChar(34), '&quot;'), to(toBoxedChar(39), '&apos;'), to(toBoxedChar(60), '&lt;'), to(toBoxedChar(62), '&gt;'), to(toBoxedChar(38), '&amp;')]);
-  KORTE_VERSION = '1.1.0';
+  KORTE_VERSION = '1.1.1';
   Mapper2 = new JsObjectMapper2();
   Kotlin.defineModule('korte', _);
   return _;
