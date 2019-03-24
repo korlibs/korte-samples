@@ -1,5 +1,3 @@
-import com.soywiz.korio.async.asyncImmediately
-import com.soywiz.korio.file.std.MemoryVfsMix
 import com.soywiz.korte.*
 import org.w3c.dom.*
 import kotlin.browser.*
@@ -24,12 +22,7 @@ fun ready(coroutineContext: CoroutineContext) {
 
     val compiledEditor = ace.edit("compiled").apply {
         setTheme("ace/theme/monokai")
-        setOptions(
-            json(
-                //"enableBasicAutocompletion" to true,
-                //"enableLiveAutocompletion" to true
-            )
-        )
+        setOptions(json())
         setReadOnly(true)
         session.setMode("ace/mode/twig")
     }
@@ -59,7 +52,7 @@ fun ready(coroutineContext: CoroutineContext) {
     """.trimIndent(), -1)
 
     fun updateRendererd() {
-        asyncImmediately(coroutineContext) {
+        val func: suspend () -> Unit = {
             val template = "### default.html\n" + sourcesEditor.getValue()
 
             val parts = template.split("###").drop(1)
@@ -69,12 +62,12 @@ fun ready(coroutineContext: CoroutineContext) {
             for (part in parts) {
                 val items = part.split("\n", limit = 2)
                 val name = items.getOrNull(0)?.trim() ?: ""
-                val content = items.getOrNull(1)?.trim() ?: ""
+                val content = items.getOrNull(1) ?: ""
                 files[name] = content
                 //println("[$name] :: $content")
             }
 
-            val vfs = MemoryVfsMix(files)
+            val vfs = TemplateProvider(files)
             val templates = Templates(vfs)
 
             val result = try {
@@ -87,11 +80,24 @@ fun ready(coroutineContext: CoroutineContext) {
             }
             compiledEditor.setValue(result, -1)
         }
+
+        func.startCoroutine(object : Continuation<Unit> {
+            override val context: CoroutineContext = coroutineContext
+            override fun resumeWith(result: Result<Unit>) {
+                println(result.exceptionOrNull() ?: return)
+            }
+        })
     }
 
+    sourcesEditor.container.addEventListener("keyup", {
+        updateRendererd()
+    }, true)
+
+    /*
     sourcesEditor.selection.onChangeCursor { event, selection ->
         updateRendererd()
     }
+    */
     updateRendererd()
 }
 

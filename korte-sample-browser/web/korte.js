@@ -1,27 +1,15 @@
 (function (root, factory) {
   if (typeof define === 'function' && define.amd)
-    define(['exports', 'kotlin', 'korio', 'kds', 'kmem', 'kotlinx-coroutines-core'], factory);
+    define(['exports', 'kotlin'], factory);
   else if (typeof exports === 'object')
-    factory(module.exports, require('kotlin'), require('korio'), require('kds'), require('kmem'), require('kotlinx-coroutines-core'));
+    factory(module.exports, require('kotlin'));
   else {
     if (typeof kotlin === 'undefined') {
       throw new Error("Error loading module 'korte'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'korte'.");
     }
-    if (typeof korio === 'undefined') {
-      throw new Error("Error loading module 'korte'. Its dependency 'korio' was not found. Please, check whether 'korio' is loaded prior to 'korte'.");
-    }
-    if (typeof kds === 'undefined') {
-      throw new Error("Error loading module 'korte'. Its dependency 'kds' was not found. Please, check whether 'kds' is loaded prior to 'korte'.");
-    }
-    if (typeof kmem === 'undefined') {
-      throw new Error("Error loading module 'korte'. Its dependency 'kmem' was not found. Please, check whether 'kmem' is loaded prior to 'korte'.");
-    }
-    if (typeof this['kotlinx-coroutines-core'] === 'undefined') {
-      throw new Error("Error loading module 'korte'. Its dependency 'kotlinx-coroutines-core' was not found. Please, check whether 'kotlinx-coroutines-core' is loaded prior to 'korte'.");
-    }
-    root.korte = factory(typeof korte === 'undefined' ? {} : korte, kotlin, korio, kds, kmem, this['kotlinx-coroutines-core']);
+    root.korte = factory(typeof korte === 'undefined' ? {} : korte, kotlin);
   }
-}(this, function (_, Kotlin, $module$korio, $module$kds, $module$kmem, $module$kotlinx_coroutines_core) {
+}(this, function (_, Kotlin) {
   'use strict';
   var $$importsForInline$$ = _.$$importsForInline$$ || (_.$$importsForInline$$ = {});
   var COROUTINE_SUSPENDED = Kotlin.kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED;
@@ -33,34 +21,26 @@
   var drop = Kotlin.kotlin.collections.drop_ba2ldo$;
   var until = Kotlin.kotlin.ranges.until_dqglrj$;
   var slice = Kotlin.kotlin.collections.slice_6bjbi1$;
-  var yaml = $module$korio.com.soywiz.korio.serialization.yaml;
   var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
   var Map = Kotlin.kotlin.collections.Map;
   var throwCCE = Kotlin.throwCCE;
-  var invalidOp = $module$korio.com.soywiz.korio.lang.invalidOp_61zpoe$;
   var listOf = Kotlin.kotlin.collections.listOf_mh5how$;
-  var ListReader = $module$kds.com.soywiz.kds.ListReader;
   var Kind_CLASS = Kotlin.Kind.CLASS;
   var Kind_OBJECT = Kotlin.Kind.OBJECT;
   var Kind_INTERFACE = Kotlin.Kind.INTERFACE;
   var println = Kotlin.kotlin.io.println_s8jyv4$;
   var Unit = Kotlin.kotlin.Unit;
-  var extraProperty = $module$kds.com.soywiz.kds.extraProperty;
   var PropertyMetadata = Kotlin.PropertyMetadata;
   var Pair = Kotlin.kotlin.Pair;
   var toString = Kotlin.toString;
   var capitalize = Kotlin.kotlin.text.capitalize_pdl1vz$;
-  var quote = $module$korio.com.soywiz.korio.util.quote_5cw0du$;
   var reversed = Kotlin.kotlin.collections.reversed_7wnvza$;
   var getOrNull = Kotlin.kotlin.collections.getOrNull_yzln2o$;
-  var clamp = $module$kmem.com.soywiz.kmem.clamp_e4yvb3$;
+  var coerceIn = Kotlin.kotlin.ranges.coerceIn_e4yvb3$;
   var slice_0 = Kotlin.kotlin.text.slice_fc3b62$;
   var plus = Kotlin.kotlin.collections.plus_mydzjv$;
-  var json = $module$korio.com.soywiz.korio.serialization.json;
-  var format = $module$korio.com.soywiz.korio.lang.format_e33kwl$;
   var chunked = Kotlin.kotlin.collections.chunked_ba2ldo$;
   var listOf_0 = Kotlin.kotlin.collections.listOf_i5x0yv$;
-  var umod = $module$kmem.com.soywiz.kmem.umod_dqglrj$;
   var IntRange = Kotlin.kotlin.ranges.IntRange;
   var step = Kotlin.kotlin.ranges.step_xsgg7u$;
   var setOf = Kotlin.kotlin.collections.setOf_i5x0yv$;
@@ -82,14 +62,12 @@
   var toLong = Kotlin.kotlin.text.toLong_pdl1vz$;
   var toDoubleOrNull = Kotlin.kotlin.text.toDoubleOrNull_pdl1vz$;
   var withIndex = Kotlin.kotlin.collections.withIndex_7wnvza$;
-  var StrReader = $module$korio.com.soywiz.korio.util.StrReader;
   var unboxChar = Kotlin.unboxChar;
-  var isLetterDigitOrUnderscore = $module$korio.com.soywiz.korio.util.isLetterDigitOrUnderscore_myv2d0$;
-  var isDigit = $module$korio.com.soywiz.korio.util.isDigit_myv2d0$;
+  var getCallableRef = Kotlin.getCallableRef;
   var toBoxedChar = Kotlin.toBoxedChar;
-  var unescape = $module$korio.com.soywiz.korio.util.unescape_pdl1vz$;
   var throwUPAE = Kotlin.throwUPAE;
-  var htmlspecialchars = $module$korio.com.soywiz.korio.util.htmlspecialchars_pdl1vz$;
+  var RuntimeException_init_0 = Kotlin.kotlin.RuntimeException_init;
+  var RuntimeException = Kotlin.kotlin.RuntimeException;
   var zip = Kotlin.kotlin.collections.zip_45mdf7$;
   var ensureNotNull = Kotlin.ensureNotNull;
   var StringBuilder_init = Kotlin.kotlin.text.StringBuilder_init;
@@ -98,26 +76,18 @@
   var Exception = Kotlin.kotlin.Exception;
   var defineInlineFunction = Kotlin.defineInlineFunction;
   var wrapFunction = Kotlin.wrapFunction;
-  var Pool_init = $module$kds.com.soywiz.kds.Pool_init_rz0iom$;
   var toMap_0 = Kotlin.kotlin.collections.toMap_v2dak7$;
   var HashMap_init = Kotlin.kotlin.collections.HashMap_init_73mtqc$;
-  var Extra = $module$kds.com.soywiz.kds.Extra;
-  var Extra$Mixin = $module$kds.com.soywiz.kds.Extra.Mixin;
-  var toByteArray = $module$korio.com.soywiz.korio.lang.toByteArray_7jlb4b$;
-  var openAsync = $module$korio.com.soywiz.korio.stream.openAsync_m1iwyb$;
   var mapOf = Kotlin.kotlin.collections.mapOf_x2b85n$;
-  var MemoryVfs = $module$korio.com.soywiz.korio.file.std.MemoryVfs_r2g07k$;
-  var lang = $module$korio.com.soywiz.korio.lang;
-  var asyncImmediately = $module$korio.com.soywiz.korio.async.asyncImmediately_nt96rv$;
-  var Deferred = $module$kotlinx_coroutines_core.kotlinx.coroutines.Deferred;
   var LinkedHashMap_init = Kotlin.kotlin.collections.LinkedHashMap_init_q3lmfv$;
+  var split_0 = Kotlin.kotlin.text.split_ip8yn$;
   var lazy = Kotlin.kotlin.lazy_klfg04$;
+  var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var substring = Kotlin.kotlin.text.substring_fc3b62$;
   var indexOf = Kotlin.kotlin.text.indexOf_l5u8uk$;
   var plus_0 = Kotlin.kotlin.collections.plus_q4559j$;
   var Iterable = Kotlin.kotlin.collections.Iterable;
   var numberToDouble = Kotlin.numberToDouble;
-  var noImpl = $module$korio.com.soywiz.korio.lang.noImpl_61zpoe$;
   var Set = Kotlin.kotlin.collections.Set;
   var kotlin_js_internal_DoubleCompanionObject = Kotlin.kotlin.js.internal.DoubleCompanionObject;
   var numberToInt = Kotlin.numberToInt;
@@ -133,8 +103,31 @@
   var toList_2 = Kotlin.kotlin.collections.toList_us0mfu$;
   var KProperty1 = Kotlin.kotlin.reflect.KProperty1;
   var KMutableProperty1 = Kotlin.kotlin.reflect.KMutableProperty1;
+  var CharRange = Kotlin.kotlin.ranges.CharRange;
+  var Regex_init = Kotlin.kotlin.text.Regex_init_61zpoe$;
+  var toString_0 = Kotlin.kotlin.text.toString_k13f4a$;
+  var toString_1 = Kotlin.kotlin.text.toString_if0zpk$;
+  var startsWith_0 = Kotlin.kotlin.text.startsWith_sgbm27$;
+  var linkedMapOf = Kotlin.kotlin.collections.linkedMapOf_qfcya0$;
+  var Enum = Kotlin.kotlin.Enum;
+  var iterator = Kotlin.kotlin.text.iterator_gw00vp$;
+  var toInt_0 = Kotlin.kotlin.text.toInt_6ic1pp$;
+  var toChar = Kotlin.toChar;
+  var endsWith = Kotlin.kotlin.text.endsWith_sgbm27$;
+  var repeat = Kotlin.kotlin.text.repeat_94bcnn$;
+  var isWhitespace = Kotlin.kotlin.text.isWhitespace_myv2d0$;
+  var replace = Kotlin.kotlin.text.replace_680rmw$;
+  var last = Kotlin.kotlin.collections.last_2p1efm$;
+  var Continuation = Kotlin.kotlin.coroutines.Continuation;
+  var startCoroutine = Kotlin.kotlin.coroutines.startCoroutine_x18nsh$;
+  KorteException.prototype = Object.create(RuntimeException.prototype);
+  KorteException.prototype.constructor = KorteException;
   Template$StopEvaluatingException.prototype = Object.create(Exception.prototype);
   Template$StopEvaluatingException.prototype.constructor = Template$StopEvaluatingException;
+  TemplateConfigWithTemplates.prototype = Object.create(TemplateConfig.prototype);
+  TemplateConfigWithTemplates.prototype.constructor = TemplateConfigWithTemplates;
+  TemplateProvider$NotFoundException.prototype = Object.create(RuntimeException.prototype);
+  TemplateProvider$NotFoundException.prototype.constructor = TemplateProvider$NotFoundException;
   Token$TLiteral.prototype = Object.create(Token.prototype);
   Token$TLiteral.prototype.constructor = Token$TLiteral;
   Token$TExpr.prototype = Object.create(Token.prototype);
@@ -164,7 +157,6 @@
       $receiver.add_11rb$(element);
     };
   }
-  var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var emptySet = Kotlin.kotlin.collections.emptySet_287e2$;
   function Coroutine$handle_hdirg7$($this, tag_0, token_0, continuation_0) {
     CoroutineImpl.call(this, continuation_0);
@@ -216,9 +208,9 @@
                   if (index >= 0) {
                     var yamlLines = slice(slines, until(0, index));
                     var outside = slice(slines, until(index + 1 | 0, slines.size));
-                    var yaml_0 = yaml.Yaml.read_61zpoe$(joinToString(yamlLines, '\n'));
-                    if (Kotlin.isType(yaml_0, Map)) {
-                      this.$this.parseContext.template.frontMatter = Kotlin.isType(tmp$ = yaml_0, Map) ? tmp$ : throwCCE();
+                    var yaml = Yaml_getInstance().read_61zpoe$(joinToString(yamlLines, '\n'));
+                    if (Kotlin.isType(yaml, Map)) {
+                      this.$this.parseContext.template.frontMatter = Kotlin.isType(tmp$ = yaml, Map) ? tmp$ : throwCCE();
                     }
                     text = joinToString(outside, '\n');
                   }
@@ -231,7 +223,7 @@
             }
              else {
               if (Kotlin.isType(it, Token$TExpr)) {
-                var element_0 = new DefaultBlocks$BlockExpr(ExprNode$Companion_getInstance().parse_61zpoe$(it.content));
+                var element_0 = new DefaultBlocks$BlockExpr(ExprNode$Companion_getInstance().parse_3atvy$(it.content, it.posContext));
                 this.local$children.add_11rb$(element_0);
                 this.state_0 = 9;
                 continue;
@@ -253,7 +245,7 @@
                       continue;
                     }
                      else {
-                      var newtag = (tmp$_1 = this.$this.parseContext.config.tags.get_11rb$(it.name)) != null ? tmp$_1 : invalidOp("Can't find tag " + it.name + ' with content ' + it.content);
+                      var newtag = (tmp$_1 = this.$this.parseContext.config.tags.get_11rb$(it.name)) != null ? tmp$_1 : it.exception_61zpoe$("Can't find tag " + it.name + ' with content ' + it.content);
                       if (newtag.end != null) {
                         this.state_0 = 4;
                         this.result_0 = this.$this.handle_hdirg7$(newtag, it, this);
@@ -363,31 +355,27 @@
     simpleName: 'Block',
     interfaces: [DynamicContext]
   };
+  function debugPrintln$lambda($receiver) {
+    return $receiver.extra;
+  }
   function debugPrintln$lambda$lambda(v) {
     println(v);
     return Unit;
   }
-  function debugPrintln$lambda() {
+  function debugPrintln$lambda_0() {
     return debugPrintln$lambda$lambda;
   }
   var debugPrintln;
   var debugPrintln_metadata = new PropertyMetadata('debugPrintln');
   function get_debugPrintln($receiver) {
-    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
-    tmp$_1 = $receiver.extra;
-    tmp$_0 = (tmp$ = debugPrintln.name) != null ? tmp$ : debugPrintln_metadata.callableName;
-    return (tmp$_3 = (tmp$_2 = tmp$_1 != null ? tmp$_1.get_11rb$(tmp$_0) : null) == null || Kotlin.isType(tmp$_2, Any) ? tmp$_2 : throwCCE()) != null ? tmp$_3 : debugPrintln.default();
+    var tmp$, tmp$_0, tmp$_1;
+    return (tmp$_1 = (tmp$_0 = debugPrintln.getExtraMap($receiver).get_11rb$((tmp$ = debugPrintln.name) != null ? tmp$ : debugPrintln_metadata.callableName)) == null || Kotlin.isType(tmp$_0, Any) ? tmp$_0 : throwCCE()) != null ? tmp$_1 : debugPrintln.default();
   }
   function set_debugPrintln($receiver, debugPrintln_0) {
-    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
-    if ($receiver.extra == null)
-      $receiver.extra = LinkedHashMap_init();
-    tmp$_3 = $receiver.extra;
-    tmp$_0 = (tmp$ = debugPrintln.name) != null ? tmp$ : debugPrintln_metadata.callableName;
-    tmp$_2 = (tmp$_1 = debugPrintln_0) == null || Kotlin.isType(tmp$_1, Any) ? tmp$_1 : throwCCE();
-    if (tmp$_3 != null) {
-      tmp$_3.put_xwzc9p$(tmp$_0, tmp$_2);
-    }
+    var tmp$, tmp$_0;
+    tmp$_0 = debugPrintln.getExtraMap($receiver);
+    var key = (tmp$ = debugPrintln.name) != null ? tmp$ : debugPrintln_metadata.callableName;
+    tmp$_0.put_xwzc9p$(key, debugPrintln_0);
   }
   function DefaultBlocks() {
     DefaultBlocks_instance = this;
@@ -2066,11 +2054,11 @@
             var length = (tmp$ = lengthArg != null ? this.local$$receiver.toDynamicInt_mzud1t$(lengthArg) : null) != null ? tmp$ : this.local$$receiver.dynamicLength_mzud1t$(this.local$$receiver.subject);
             if (typeof this.local$$receiver.subject === 'string') {
               var str = this.local$$receiver.toDynamicString_mzud1t$(this.local$$receiver.subject);
-              return slice_0(str, until(clamp(start, 0, str.length), clamp(start + length | 0, 0, str.length)));
+              return slice_0(str, until(coerceIn(start, 0, str.length), coerceIn(start + length | 0, 0, str.length)));
             }
              else {
               var list = this.local$$receiver.toDynamicList_mzud1t$(this.local$$receiver.subject);
-              return slice(list, until(clamp(start, 0, list.size), clamp(start + length | 0, 0, list.size)));
+              return slice(list, until(coerceIn(start, 0, list.size), coerceIn(start + length | 0, 0, list.size)));
             }
 
           case 1:
@@ -2319,7 +2307,7 @@
       try {
         switch (this.state_0) {
           case 0:
-            return json.Json.stringify_oud20p$(this.local$$receiver.subject);
+            return Json_getInstance().stringify_s8jyv4$(this.local$$receiver.subject);
           case 1:
             throw this.exception_0;
           default:this.state_0 = 1;
@@ -2744,8 +2732,8 @@
         switch (this.state_0) {
           case 0:
             var part = first(this.local$$receiver.chunks);
-            var tokens = ExprNode$Token$Companion_getInstance().tokenize_61zpoe$(part.tag.content);
-            var name = ExprNode$Companion_getInstance().parseId_lbidoo$(tokens);
+            var tokens = part.tag.tokens;
+            var name = ExprNode$Companion_getInstance().parseId_144v2j$(tokens);
             if (name.length === 0)
               throw IllegalArgumentException_init('block without name');
             this.local$$receiver.context.template.addBlock_x5ctsa$(name, part.body);
@@ -2794,8 +2782,8 @@
         switch (this.state_0) {
           case 0:
             var main = this.local$$receiver.chunks.get_za3lpa$(0);
-            var tr = ExprNode$Token$Companion_getInstance().tokenize_61zpoe$(main.tag.content);
-            var varname = ExprNode$Companion_getInstance().parseId_lbidoo$(tr);
+            var tr = main.tag.tokens;
+            var varname = ExprNode$Companion_getInstance().parseId_144v2j$(tr);
             return new DefaultBlocks$BlockCapture(varname, main.body);
           case 1:
             throw this.exception_0;
@@ -2840,7 +2828,7 @@
       try {
         switch (this.state_0) {
           case 0:
-            return new DefaultBlocks$BlockDebug(ExprNode$Companion_getInstance().parse_61zpoe$(this.local$$receiver.chunks.get_za3lpa$(0).tag.content));
+            return new DefaultBlocks$BlockDebug(this.local$$receiver.chunks.get_za3lpa$(0).tag.expr);
           case 1:
             throw this.exception_0;
           default:this.state_0 = 1;
@@ -2941,7 +2929,7 @@
         switch (this.state_0) {
           case 0:
             var part = first(this.local$$receiver.chunks);
-            var parent = ExprNode$Companion_getInstance().parseExpr_lbidoo$(ExprNode$Token$Companion_getInstance().tokenize_61zpoe$(part.tag.content));
+            var parent = ExprNode$Companion_getInstance().parseExpr_144v2j$(part.tag.tokens);
             return new DefaultBlocks$BlockExtends(parent);
           case 1:
             throw this.exception_0;
@@ -2989,15 +2977,15 @@
             var tmp$;
             var main = this.local$$receiver.chunks.get_za3lpa$(0);
             var elseTag = (tmp$ = getOrNull(this.local$$receiver.chunks, 1)) != null ? tmp$.body : null;
-            var tr = ExprNode$Token$Companion_getInstance().tokenize_61zpoe$(main.tag.content);
+            var tr = main.tag.tokens;
             var varnames = ArrayList_init();
             do {
-              var element = ExprNode$Companion_getInstance().parseId_lbidoo$(tr);
+              var element = ExprNode$Companion_getInstance().parseId_144v2j$(tr);
               varnames.add_11rb$(element);
             }
              while (tryRead(tr, [',']) != null);
-            ExprNode$Companion_getInstance().expect_59qugx$(tr, ['in']);
-            var expr = ExprNode$Companion_getInstance().parseExpr_lbidoo$(tr);
+            ExprNode$Companion_getInstance().expect_z9we0s$(tr, ['in']);
+            var expr = ExprNode$Companion_getInstance().parseExpr_144v2j$(tr);
             return new DefaultBlocks$BlockFor(varnames, expr, main.body, elseTag);
           case 1:
             throw this.exception_0;
@@ -3051,7 +3039,7 @@
               switch (part.tag.name) {
                 case 'if':
                 case 'elseif':
-                  var element = to(ExprNode$Companion_getInstance().parse_61zpoe$(part.tag.content), part.body);
+                  var element = to(part.tag.expr, part.body);
                   ifBranches.add_11rb$(element);
                   break;
                 case 'else':
@@ -3113,7 +3101,7 @@
         switch (this.state_0) {
           case 0:
             var part = first(this.local$$receiver.chunks);
-            var s = ExprNode$Token$Companion_getInstance().tokenize_61zpoe$(part.tag.content);
+            var s = part.tag.tokens;
             var file = parseExpr(s);
             expect(s, ['as']);
             var name = s.read().text;
@@ -3162,7 +3150,7 @@
         switch (this.state_0) {
           case 0:
             var part = first(this.local$$receiver.chunks);
-            var fileName = ExprNode$Companion_getInstance().parseExpr_lbidoo$(part.tag.tokens);
+            var fileName = part.tag.expr;
             return new DefaultBlocks$BlockInclude(fileName);
           case 1:
             throw this.exception_0;
@@ -3208,7 +3196,7 @@
         switch (this.state_0) {
           case 0:
             var part = this.local$$receiver.chunks.get_za3lpa$(0);
-            var s = ExprNode$Token$Companion_getInstance().tokenize_61zpoe$(part.tag.content);
+            var s = part.tag.tokens;
             var funcname = parseId(s);
             expect(s, ['(']);
             var params = parseIdList(s);
@@ -3258,10 +3246,10 @@
         switch (this.state_0) {
           case 0:
             var main = this.local$$receiver.chunks.get_za3lpa$(0);
-            var tr = ExprNode$Token$Companion_getInstance().tokenize_61zpoe$(main.tag.content);
-            var varname = ExprNode$Companion_getInstance().parseId_lbidoo$(tr);
-            ExprNode$Companion_getInstance().expect_59qugx$(tr, ['=']);
-            var expr = ExprNode$Companion_getInstance().parseExpr_lbidoo$(tr);
+            var tr = main.tag.tokens;
+            var varname = ExprNode$Companion_getInstance().parseId_144v2j$(tr);
+            ExprNode$Companion_getInstance().expect_z9we0s$(tr, ['=']);
+            var expr = ExprNode$Companion_getInstance().parseExpr_144v2j$(tr);
             return new DefaultBlocks$BlockSet(varname, expr);
           case 1:
             throw this.exception_0;
@@ -3432,14 +3420,13 @@
             tmp$ = this.local$$receiver.chunks.iterator();
             while (tmp$.hasNext()) {
               var part = tmp$.next();
-              var tagContent = part.tag.content;
               var body = part.body;
               switch (part.tag.name) {
                 case 'switch':
-                  subject.v = ExprNode$Companion_getInstance().parse_61zpoe$(tagContent);
+                  subject.v = part.tag.expr;
                   break;
                 case 'case':
-                  var element = to(ExprNode$Companion_getInstance().parse_61zpoe$(tagContent), body);
+                  var element = to(part.tag.expr, body);
                   cases.add_11rb$(element);
                   break;
                 case 'default':
@@ -3748,18 +3735,19 @@
   ExprNode$OBJECT_LIT.prototype.equals = function (other) {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.items, other.items))));
   };
-  function ExprNode$FILTER(name, expr, params) {
+  function ExprNode$FILTER(name, expr, params, tok) {
     this.name = name;
     this.expr = expr;
     this.params = params;
+    this.tok = tok;
   }
   function Coroutine$eval_ojpytg$_14($this, context_0, continuation_0) {
     CoroutineImpl.call(this, continuation_0);
     this.exceptionState_0 = 9;
     this.$this = $this;
     this.local$filter = void 0;
-    this.local$$receiver = void 0;
-    this.local$alloc2$result = void 0;
+    this.local$$this = void 0;
+    this.local$alloc_2o04qz$result = void 0;
     this.local$temp = void 0;
     this.local$destination = void 0;
     this.local$tmp$ = void 0;
@@ -3779,9 +3767,9 @@
         switch (this.state_0) {
           case 0:
             var tmp$;
-            this.local$filter = (tmp$ = this.local$context.config.filters.get_11rb$(this.$this.name)) != null ? tmp$ : invalidOp("Unknown filter '" + this.$this.name + "'");
-            this.local$$receiver = this.local$context.filterCtxPool;
-            this.local$temp = this.local$$receiver.alloc();
+            this.local$filter = (tmp$ = this.local$context.config.filters.get_11rb$(this.$this.name)) != null ? tmp$ : this.$this.tok.exception_61zpoe$("Unknown filter '" + this.$this.name + "'");
+            this.local$$this = this.local$context.filterCtxPool_8be2vx$;
+            this.local$temp = this.local$$this.alloc();
             this.exceptionState_0 = 7;
             this.local$temp.context = this.local$context;
             this.state_0 = 1;
@@ -3821,20 +3809,20 @@
               return COROUTINE_SUSPENDED;
             continue;
           case 5:
-            this.local$alloc2$result = this.result_0;
+            this.local$alloc_2o04qz$result = this.result_0;
             this.exceptionState_0 = 9;
             this.finallyPath_0 = [6];
             this.state_0 = 8;
             continue;
           case 6:
-            return this.local$alloc2$result;
+            return this.local$alloc_2o04qz$result;
           case 7:
             this.finallyPath_0 = [9];
             this.state_0 = 8;
             continue;
           case 8:
             this.exceptionState_0 = 9;
-            this.local$$receiver.free_11rb$(this.local$temp);
+            this.local$$this.free_11rb$(this.local$temp);
             this.state_0 = this.finallyPath_0.shift();
             continue;
           case 9:
@@ -3876,21 +3864,25 @@
   ExprNode$FILTER.prototype.component3 = function () {
     return this.params;
   };
-  ExprNode$FILTER.prototype.copy_1gt5nt$ = function (name, expr, params) {
-    return new ExprNode$FILTER(name === void 0 ? this.name : name, expr === void 0 ? this.expr : expr, params === void 0 ? this.params : params);
+  ExprNode$FILTER.prototype.component4 = function () {
+    return this.tok;
+  };
+  ExprNode$FILTER.prototype.copy_5qnmge$ = function (name, expr, params, tok) {
+    return new ExprNode$FILTER(name === void 0 ? this.name : name, expr === void 0 ? this.expr : expr, params === void 0 ? this.params : params, tok === void 0 ? this.tok : tok);
   };
   ExprNode$FILTER.prototype.toString = function () {
-    return 'FILTER(name=' + Kotlin.toString(this.name) + (', expr=' + Kotlin.toString(this.expr)) + (', params=' + Kotlin.toString(this.params)) + ')';
+    return 'FILTER(name=' + Kotlin.toString(this.name) + (', expr=' + Kotlin.toString(this.expr)) + (', params=' + Kotlin.toString(this.params)) + (', tok=' + Kotlin.toString(this.tok)) + ')';
   };
   ExprNode$FILTER.prototype.hashCode = function () {
     var result = 0;
     result = result * 31 + Kotlin.hashCode(this.name) | 0;
     result = result * 31 + Kotlin.hashCode(this.expr) | 0;
     result = result * 31 + Kotlin.hashCode(this.params) | 0;
+    result = result * 31 + Kotlin.hashCode(this.tok) | 0;
     return result;
   };
   ExprNode$FILTER.prototype.equals = function (other) {
-    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.expr, other.expr) && Kotlin.equals(this.params, other.params)))));
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.expr, other.expr) && Kotlin.equals(this.params, other.params) && Kotlin.equals(this.tok, other.tok)))));
   };
   function ExprNode$ACCESS(expr, name) {
     this.expr = expr;
@@ -4579,31 +4571,38 @@
     }
     this.BINOPS_0 = toMap(destination);
   }
-  ExprNode$Companion.prototype.parse_61zpoe$ = function (str) {
-    var tokens = ExprNode$Token$Companion_getInstance().tokenize_61zpoe$(str);
-    return ExprNode$Companion_getInstance().parseFullExpr_lbidoo$(tokens);
+  ExprNode$Companion.prototype.parse_yrs42o$ = function (tag) {
+    return this.parse_3atvy$(tag.content, tag.posContext);
   };
-  ExprNode$Companion.prototype.parseId_lbidoo$ = function (r) {
+  ExprNode$Companion.prototype.parse_3atvy$ = function (str, context) {
+    var tokens = ExprNode$Token$Companion_getInstance().tokenize_3atvy$(str, context);
+    if (tokens.list.isEmpty() || Kotlin.isType(first(tokens.list), ExprNode$Token$TEnd)) {
+      context.exception_61zpoe$('No expression');
+    }
+    return ExprNode$Companion_getInstance().parseFullExpr_144v2j$(tokens);
+  };
+  ExprNode$Companion.prototype.parseId_144v2j$ = function (r) {
     return r.read().text;
   };
-  ExprNode$Companion.prototype.expect_59qugx$ = function (r, tokens) {
+  ExprNode$Companion.prototype.expect_z9we0s$ = function (r, tokens) {
     var token = r.read();
     if (!contains(tokens, token.text))
-      invalidOp('Expected ' + joinToString_0(tokens, ', ') + ' but found ' + token);
+      token.exception_61zpoe$('Expected ' + joinToString_0(tokens, ', ') + ' but found ' + token);
   };
-  ExprNode$Companion.prototype.parseFullExpr_lbidoo$ = function (r) {
-    var result = ExprNode$Companion_getInstance().parseExpr_lbidoo$(r);
+  ExprNode$Companion.prototype.parseFullExpr_144v2j$ = function (r) {
+    var result = ExprNode$Companion_getInstance().parseExpr_144v2j$(r);
     if (r.hasMore && !Kotlin.isType(r.peek(), ExprNode$Token$TEnd)) {
-      var tmp$ = 'Expected expression at ' + toString(r.peek()) + ' :: ';
+      var tmp$ = r.peek();
+      var tmp$_0 = 'Expected expression at ' + toString(r.peek()) + ' :: ';
       var $receiver = r.list;
       var destination = ArrayList_init_0(collectionSizeOrDefault($receiver, 10));
-      var tmp$_0;
-      tmp$_0 = $receiver.iterator();
-      while (tmp$_0.hasNext()) {
-        var item = tmp$_0.next();
+      var tmp$_1;
+      tmp$_1 = $receiver.iterator();
+      while (tmp$_1.hasNext()) {
+        var item = tmp$_1.next();
         destination.add_11rb$(item.text);
       }
-      invalidOp(tmp$ + joinToString(destination, ''));
+      tmp$.exception_61zpoe$(tmp$_0 + joinToString(destination, ''));
     }
     return result;
   };
@@ -4611,7 +4610,7 @@
     var tmp$;
     return (tmp$ = this.BINOPS_0.get_11rb$(str)) != null ? tmp$ : 0;
   };
-  ExprNode$Companion.prototype.parseBinExpr_lbidoo$ = function (r) {
+  ExprNode$Companion.prototype.parseBinExpr_144v2j$ = function (r) {
     var result = this.parseFinal_0(r);
     while (r.hasMore) {
       var $receiver = ExprNode$Companion_getInstance().BINOPS_0;
@@ -4638,19 +4637,19 @@
     }
     return result;
   };
-  ExprNode$Companion.prototype.parseTernaryExpr_lbidoo$ = function (r) {
-    var left = this.parseBinExpr_lbidoo$(r);
+  ExprNode$Companion.prototype.parseTernaryExpr_144v2j$ = function (r) {
+    var left = this.parseBinExpr_144v2j$(r);
     if (equals(r.peek().text, '?')) {
       r.skip_za3lpa$();
-      var middle = this.parseExpr_lbidoo$(r);
+      var middle = this.parseExpr_144v2j$(r);
       expect(r, [':']);
-      var right = this.parseExpr_lbidoo$(r);
+      var right = this.parseExpr_144v2j$(r);
       left = new ExprNode$TERNARY(left, middle, right);
     }
     return left;
   };
-  ExprNode$Companion.prototype.parseExpr_lbidoo$ = function (r) {
-    return this.parseTernaryExpr_lbidoo$(r);
+  ExprNode$Companion.prototype.parseExpr_144v2j$ = function (r) {
+    return this.parseTernaryExpr_144v2j$(r);
   };
   ExprNode$Companion.prototype.parseFinal_0 = function (r) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4, tmp$_5, tmp$_6;
@@ -4672,7 +4671,7 @@
         break;
       case '(':
         r.read();
-        var result = ExprNode$Companion_getInstance().parseExpr_lbidoo$(r);
+        var result = ExprNode$Companion_getInstance().parseExpr_144v2j$(r);
         if (!equals(r.read().text, ')'))
           throw RuntimeException_init("Expected ')'");
         tmp$_6 = new ExprNode$UNOP(result, '');
@@ -4681,7 +4680,7 @@
         r.read();
         var items = ArrayList_init();
         loop: while (r.hasMore && !equals(r.peek().text, ']')) {
-          var element = ExprNode$Companion_getInstance().parseExpr_lbidoo$(r);
+          var element = ExprNode$Companion_getInstance().parseExpr_144v2j$(r);
           items.add_11rb$(element);
           switch (r.peek().text) {
             case ',':
@@ -4689,7 +4688,7 @@
               break;
             case ']':
               continue loop;
-            default:invalidOp('Expected , or ]');
+            default:r.peek().exception_61zpoe$('Expected , or ]');
               break;
           }
         }
@@ -4703,7 +4702,7 @@
         loop: while (r.hasMore && !equals(r.peek().text, '}')) {
           var k = ExprNode$Companion_getInstance().parseFinal_0(r);
           expect(r, [':']);
-          var v = ExprNode$Companion_getInstance().parseExpr_lbidoo$(r);
+          var v = ExprNode$Companion_getInstance().parseExpr_144v2j$(r);
           var element_0 = to(k, v);
           items_0.add_11rb$(element_0);
           switch (r.peek().text) {
@@ -4712,7 +4711,7 @@
               break;
             case '}':
               continue loop;
-            default:invalidOp('Expected , or }');
+            default:r.peek().exception_61zpoe$('Expected , or }');
               break;
           }
         }
@@ -4752,22 +4751,22 @@
           continue loop;
         case '[':
           r.read();
-          var expr = ExprNode$Companion_getInstance().parseExpr_lbidoo$(r);
+          var expr = ExprNode$Companion_getInstance().parseExpr_144v2j$(r);
           construct = new ExprNode$ACCESS(construct, expr);
           var end = r.read();
           if (!equals(end.text, ']'))
-            throw RuntimeException_init("Expected ']' but found " + end);
+            end.exception_61zpoe$("Expected ']' but found " + end);
           break;
         case '|':
-          r.read();
+          var tok_0 = r.read();
           var name = r.read().text;
           var args = ArrayList_init();
           if (name.length === 0)
-            invalidOp('Missing filter name');
+            tok_0.exception_61zpoe$('Missing filter name');
           if (r.hasMore && equals(r.peek().text, '(')) {
             r.read();
             callargsloop: while (r.hasMore && !equals(r.peek().text, ')')) {
-              var element_1 = ExprNode$Companion_getInstance().parseExpr_lbidoo$(r);
+              var element_1 = ExprNode$Companion_getInstance().parseExpr_144v2j$(r);
               args.add_11rb$(element_1);
               switch (expectPeek(r, [',', ')']).text) {
                 case ',':
@@ -4780,13 +4779,13 @@
             expect(r, [')']);
           }
 
-          construct = new ExprNode$FILTER(name, construct, args);
+          construct = new ExprNode$FILTER(name, construct, args, tok_0);
           break;
         case '(':
           r.read();
           var args_0 = ArrayList_init();
           callargsloop: while (r.hasMore && !equals(r.peek().text, ')')) {
-            var element_2 = ExprNode$Companion_getInstance().parseExpr_lbidoo$(r);
+            var element_2 = ExprNode$Companion_getInstance().parseExpr_144v2j$(r);
             args_0.add_11rb$(element_2);
             switch (expectPeek(r, [',', ')']).text) {
               case ',':
@@ -4822,16 +4821,41 @@
   }
   function ExprNode$Token$TId(text) {
     this.text_q4i2h$_0 = text;
+    this.$delegate_3cc0jc$_0 = new TokenContext$Mixin();
   }
   Object.defineProperty(ExprNode$Token$TId.prototype, 'text', {
     get: function () {
       return this.text_q4i2h$_0;
     }
   });
+  Object.defineProperty(ExprNode$Token$TId.prototype, 'file', {
+    get: function () {
+      return this.$delegate_3cc0jc$_0.file;
+    },
+    set: function (tmp$) {
+      this.$delegate_3cc0jc$_0.file = tmp$;
+    }
+  });
+  Object.defineProperty(ExprNode$Token$TId.prototype, 'pos', {
+    get: function () {
+      return this.$delegate_3cc0jc$_0.pos;
+    },
+    set: function (tmp$) {
+      this.$delegate_3cc0jc$_0.pos = tmp$;
+    }
+  });
+  Object.defineProperty(ExprNode$Token$TId.prototype, 'posContext', {
+    get: function () {
+      return this.$delegate_3cc0jc$_0.posContext;
+    }
+  });
+  ExprNode$Token$TId.prototype.exception_61zpoe$ = function (msg) {
+    return this.$delegate_3cc0jc$_0.exception_61zpoe$(msg);
+  };
   ExprNode$Token$TId.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'TId',
-    interfaces: [ExprNode$Token]
+    interfaces: [ExprNode$Token, TokenContext]
   };
   ExprNode$Token$TId.prototype.component1 = function () {
     return this.text;
@@ -4852,16 +4876,41 @@
   };
   function ExprNode$Token$TNumber(text) {
     this.text_g6xtfv$_0 = text;
+    this.$delegate_u8fx8q$_0 = new TokenContext$Mixin();
   }
   Object.defineProperty(ExprNode$Token$TNumber.prototype, 'text', {
     get: function () {
       return this.text_g6xtfv$_0;
     }
   });
+  Object.defineProperty(ExprNode$Token$TNumber.prototype, 'file', {
+    get: function () {
+      return this.$delegate_u8fx8q$_0.file;
+    },
+    set: function (tmp$) {
+      this.$delegate_u8fx8q$_0.file = tmp$;
+    }
+  });
+  Object.defineProperty(ExprNode$Token$TNumber.prototype, 'pos', {
+    get: function () {
+      return this.$delegate_u8fx8q$_0.pos;
+    },
+    set: function (tmp$) {
+      this.$delegate_u8fx8q$_0.pos = tmp$;
+    }
+  });
+  Object.defineProperty(ExprNode$Token$TNumber.prototype, 'posContext', {
+    get: function () {
+      return this.$delegate_u8fx8q$_0.posContext;
+    }
+  });
+  ExprNode$Token$TNumber.prototype.exception_61zpoe$ = function (msg) {
+    return this.$delegate_u8fx8q$_0.exception_61zpoe$(msg);
+  };
   ExprNode$Token$TNumber.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'TNumber',
-    interfaces: [ExprNode$Token]
+    interfaces: [ExprNode$Token, TokenContext]
   };
   ExprNode$Token$TNumber.prototype.component1 = function () {
     return this.text;
@@ -4883,16 +4932,41 @@
   function ExprNode$Token$TString(text, processedValue) {
     this.text_wb88zn$_0 = text;
     this.processedValue = processedValue;
+    this.$delegate_rvo9j6$_0 = new TokenContext$Mixin();
   }
   Object.defineProperty(ExprNode$Token$TString.prototype, 'text', {
     get: function () {
       return this.text_wb88zn$_0;
     }
   });
+  Object.defineProperty(ExprNode$Token$TString.prototype, 'file', {
+    get: function () {
+      return this.$delegate_rvo9j6$_0.file;
+    },
+    set: function (tmp$) {
+      this.$delegate_rvo9j6$_0.file = tmp$;
+    }
+  });
+  Object.defineProperty(ExprNode$Token$TString.prototype, 'pos', {
+    get: function () {
+      return this.$delegate_rvo9j6$_0.pos;
+    },
+    set: function (tmp$) {
+      this.$delegate_rvo9j6$_0.pos = tmp$;
+    }
+  });
+  Object.defineProperty(ExprNode$Token$TString.prototype, 'posContext', {
+    get: function () {
+      return this.$delegate_rvo9j6$_0.posContext;
+    }
+  });
+  ExprNode$Token$TString.prototype.exception_61zpoe$ = function (msg) {
+    return this.$delegate_rvo9j6$_0.exception_61zpoe$(msg);
+  };
   ExprNode$Token$TString.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'TString',
-    interfaces: [ExprNode$Token]
+    interfaces: [ExprNode$Token, TokenContext]
   };
   ExprNode$Token$TString.prototype.component1 = function () {
     return this.text;
@@ -4917,16 +4991,41 @@
   };
   function ExprNode$Token$TOperator(text) {
     this.text_ajexlc$_0 = text;
+    this.$delegate_j74glt$_0 = new TokenContext$Mixin();
   }
   Object.defineProperty(ExprNode$Token$TOperator.prototype, 'text', {
     get: function () {
       return this.text_ajexlc$_0;
     }
   });
+  Object.defineProperty(ExprNode$Token$TOperator.prototype, 'file', {
+    get: function () {
+      return this.$delegate_j74glt$_0.file;
+    },
+    set: function (tmp$) {
+      this.$delegate_j74glt$_0.file = tmp$;
+    }
+  });
+  Object.defineProperty(ExprNode$Token$TOperator.prototype, 'pos', {
+    get: function () {
+      return this.$delegate_j74glt$_0.pos;
+    },
+    set: function (tmp$) {
+      this.$delegate_j74glt$_0.pos = tmp$;
+    }
+  });
+  Object.defineProperty(ExprNode$Token$TOperator.prototype, 'posContext', {
+    get: function () {
+      return this.$delegate_j74glt$_0.posContext;
+    }
+  });
+  ExprNode$Token$TOperator.prototype.exception_61zpoe$ = function (msg) {
+    return this.$delegate_j74glt$_0.exception_61zpoe$(msg);
+  };
   ExprNode$Token$TOperator.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'TOperator',
-    interfaces: [ExprNode$Token]
+    interfaces: [ExprNode$Token, TokenContext]
   };
   ExprNode$Token$TOperator.prototype.component1 = function () {
     return this.text;
@@ -4949,16 +5048,41 @@
     if (text === void 0)
       text = '';
     this.text_8h730t$_0 = text;
+    this.$delegate_wl8hbm$_0 = new TokenContext$Mixin();
   }
   Object.defineProperty(ExprNode$Token$TEnd.prototype, 'text', {
     get: function () {
       return this.text_8h730t$_0;
     }
   });
+  Object.defineProperty(ExprNode$Token$TEnd.prototype, 'file', {
+    get: function () {
+      return this.$delegate_wl8hbm$_0.file;
+    },
+    set: function (tmp$) {
+      this.$delegate_wl8hbm$_0.file = tmp$;
+    }
+  });
+  Object.defineProperty(ExprNode$Token$TEnd.prototype, 'pos', {
+    get: function () {
+      return this.$delegate_wl8hbm$_0.pos;
+    },
+    set: function (tmp$) {
+      this.$delegate_wl8hbm$_0.pos = tmp$;
+    }
+  });
+  Object.defineProperty(ExprNode$Token$TEnd.prototype, 'posContext', {
+    get: function () {
+      return this.$delegate_wl8hbm$_0.posContext;
+    }
+  });
+  ExprNode$Token$TEnd.prototype.exception_61zpoe$ = function (msg) {
+    return this.$delegate_wl8hbm$_0.exception_61zpoe$(msg);
+  };
   ExprNode$Token$TEnd.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'TEnd',
-    interfaces: [ExprNode$Token]
+    interfaces: [ExprNode$Token, TokenContext]
   };
   ExprNode$Token$TEnd.prototype.component1 = function () {
     return this.text;
@@ -4981,56 +5105,53 @@
     ExprNode$Token$Companion_instance = this;
     this.OPERATORS_0 = setOf(['(', ')', '[', ']', '{', '}', '&&', '||', '&', '|', '^', '==', '!=', '<', '>', '<=', '>=', '<=>', '?:', '..', '+', '-', '*', '/', '%', '**', '!', '~', '.', ',', ';', ':', '?', '=']);
   }
-  function ExprNode$Token$Companion$tokenize$emit(closure$out) {
-    return function (str) {
+  function ExprNode$Token$Companion$tokenize$emit(closure$context, closure$out) {
+    return function (str, tpos) {
+      str.pos = closure$context.pos + tpos | 0;
+      str.file = closure$context.file;
       closure$out.add_11rb$(str);
     };
   }
-  ExprNode$Token$Companion.prototype.tokenize_61zpoe$ = function (str) {
+  ExprNode$Token$Companion.prototype.tokenize_3atvy$ = function (str, context) {
     var tmp$;
     var r = new StrReader(str);
     var out = ArrayList_init();
-    var emit = ExprNode$Token$Companion$tokenize$emit(out);
+    var emit = ExprNode$Token$Companion$tokenize$emit(context, out);
     while (r.hasMore) {
       var start = r.pos;
       r.skipSpaces();
-      var tmp$_0;
-      var start_0 = r.pos;
-      while (true) {
-        var tmp$_1 = r.hasMore;
-        if (tmp$_1) {
-          tmp$_1 = isLetterDigitOrUnderscore(unboxChar(r.peekChar()));
-        }
-        if (!tmp$_1)
-          break;
-        r.readChar();
-      }
-      var end = r.pos;
-      var id = (tmp$_0 = end > start_0 ? r.slice_vux9f0$(start_0, end) : null) != null ? tmp$_0 : '';
+      var dstart = r.pos;
+      var id = r.readWhile_akknk2$(getCallableRef('isLetterDigitOrUnderscore', function ($receiver) {
+        return isLetterDigitOrUnderscore(unboxChar($receiver));
+      }));
       if (id.length > 0) {
         if (isDigit(id.charCodeAt(0)))
-          emit(new ExprNode$Token$TNumber(id));
+          emit(new ExprNode$Token$TNumber(id), dstart);
         else
-          emit(new ExprNode$Token$TId(id));
+          emit(new ExprNode$Token$TId(id), dstart);
       }
       r.skipSpaces();
+      var dstart2 = r.pos;
       if (ExprNode$Token$Companion_getInstance().OPERATORS_0.contains_11rb$(r.peek_za3lpa$(3)))
-        emit(new ExprNode$Token$TOperator(r.read_za3lpa$(3)));
+        emit(new ExprNode$Token$TOperator(r.read_za3lpa$(3)), dstart2);
       if (ExprNode$Token$Companion_getInstance().OPERATORS_0.contains_11rb$(r.peek_za3lpa$(2)))
-        emit(new ExprNode$Token$TOperator(r.read_za3lpa$(2)));
+        emit(new ExprNode$Token$TOperator(r.read_za3lpa$(2)), dstart2);
       if (ExprNode$Token$Companion_getInstance().OPERATORS_0.contains_11rb$(r.peek_za3lpa$(1)))
-        emit(new ExprNode$Token$TOperator(r.read_za3lpa$(1)));
+        emit(new ExprNode$Token$TOperator(r.read_za3lpa$(1)), dstart2);
       if (unboxChar(r.peek()) === 39 || unboxChar(r.peek()) === 34) {
+        var dstart3 = r.pos;
         var strStart = unboxChar(r.read());
-        var strBody = (tmp$ = r.readUntil_s8itvh$(strStart)) != null ? tmp$ : '';
+        var strBody = (tmp$ = r.readUntil_s8itvh$(strStart)) != null ? tmp$ : context.withPosAdd_za3lpa$(dstart3).exception_61zpoe$('String literal not closed');
         var strEnd = unboxChar(r.read());
-        emit(new ExprNode$Token$TString(String.fromCharCode(strStart) + strBody + String.fromCharCode(toBoxedChar(strEnd)), unescape(strBody)));
+        emit(new ExprNode$Token$TString(String.fromCharCode(strStart) + strBody + String.fromCharCode(toBoxedChar(strEnd)), unescape(strBody)), dstart3);
       }
-      var end_0 = r.pos;
-      if (end_0 === start)
-        invalidOp("Don't know how to handle '" + String.fromCharCode(unboxChar(r.peek())) + "'");
+      var end = r.pos;
+      if (end === start) {
+        context.withPosAdd_za3lpa$(end).exception_61zpoe$("Don't know how to handle '" + String.fromCharCode(unboxChar(r.peek())) + "'");
+      }
     }
-    emit(new ExprNode$Token$TEnd());
+    var dstart_0 = r.pos;
+    emit(new ExprNode$Token$TEnd(), dstart_0);
     return new ListReader(out);
   };
   ExprNode$Token$Companion.$metadata$ = {
@@ -5048,7 +5169,7 @@
   ExprNode$Token.$metadata$ = {
     kind: Kind_INTERFACE,
     simpleName: 'Token',
-    interfaces: []
+    interfaces: [TokenContext]
   };
   ExprNode.$metadata$ = {
     kind: Kind_INTERFACE,
@@ -5078,10 +5199,10 @@
     return token;
   }
   function parseExpr($receiver) {
-    return ExprNode$Companion_getInstance().parseExpr_lbidoo$($receiver);
+    return ExprNode$Companion_getInstance().parseExpr_144v2j$($receiver);
   }
   function parseId($receiver) {
-    return ExprNode$Companion_getInstance().parseId_lbidoo$($receiver);
+    return ExprNode$Companion_getInstance().parseId_144v2j$($receiver);
   }
   function parseIdList($receiver) {
     var ids = ArrayList_init();
@@ -5162,6 +5283,25 @@
       new Korte();
     }
     return Korte_instance;
+  }
+  function KorteException(msg, context) {
+    RuntimeException_init_0(this);
+    this.msg = msg;
+    this.context = context;
+    this.name = 'KorteException';
+  }
+  Object.defineProperty(KorteException.prototype, 'message', {
+    get: function () {
+      return this.msg + ' at ' + this.context;
+    }
+  });
+  KorteException.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'KorteException',
+    interfaces: [RuntimeException]
+  };
+  function korteException(msg, context) {
+    throw new KorteException(msg, context);
   }
   function RawString(str) {
     this.str = str;
@@ -5328,11 +5468,10 @@
     this.templates = templates;
     this.template = template;
     this.config = config;
-    this.$delegate_j1i9$_0 = new Extra$Mixin();
     this.frontMatter = null;
     this.blocks = HashMap_init_0();
     this.parseContext = new Template$ParseContext(this, this.config);
-    this.templateTokens = Token$Companion_getInstance().tokenize_61zpoe$(this.template);
+    this.templateTokens = Token$Companion_getInstance().tokenize_3atvy$(this.template, new FilePosContext(new FileContext(this.name, this.template), 0));
     this.rootNode_o4olyf$_0 = this.rootNode_o4olyf$_0;
   }
   Object.defineProperty(Template.prototype, 'rootNode', {
@@ -6441,7 +6580,7 @@
     this.templates = this.currentTemplate.templates;
     this.macros = HashMap_init_0();
     this.currentBlock = null;
-    this.filterCtxPool = Pool_init(void 0, Template$EvalContext$filterCtxPool$lambda);
+    this.filterCtxPool_8be2vx$ = Pool_init(void 0, Template$EvalContext$filterCtxPool$lambda);
   }
   Template$EvalContext.prototype.setTempTemplate_xqhv9e$ = defineInlineFunction('korte.com.soywiz.korte.Template.EvalContext.setTempTemplate_xqhv9e$', function (template, callback) {
     var oldTemplate = this.currentTemplate;
@@ -6828,25 +6967,17 @@
     else
       return instance.doResume(null);
   };
-  Object.defineProperty(Template.prototype, 'extra', {
-    get: function () {
-      return this.$delegate_j1i9$_0.extra;
-    },
-    set: function (tmp$) {
-      this.$delegate_j1i9$_0.extra = tmp$;
-    }
-  });
   Template.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'Template',
-    interfaces: [Extra]
+    interfaces: []
   };
   function Template_0(template, config, continuation) {
     if (config === void 0)
       config = new TemplateConfig();
-    return (new Templates(MemoryVfs(mapOf(to('template', openAsync(toByteArray(template, config.charset))))), void 0, void 0, config)).get_61zpoe$('template', continuation);
+    return (new Templates(TemplateProvider_0(mapOf(to('template', template))), void 0, void 0, config)).get_61zpoe$('template', continuation);
   }
-  function TemplateConfig(extraTags, extraFilters, extraFunctions, charset) {
+  function TemplateConfig(extraTags, extraFilters, extraFunctions) {
     if (extraTags === void 0) {
       extraTags = emptyList();
     }
@@ -6856,10 +6987,7 @@
     if (extraFunctions === void 0) {
       extraFunctions = emptyList();
     }
-    if (charset === void 0)
-      charset = lang.UTF8;
-    this.charset = charset;
-    this.$delegate_kgsda7$_0 = new Extra$Mixin();
+    this.extra = LinkedHashMap_init();
     this.integratedFunctions = DefaultFunctions_getInstance().ALL;
     this.integratedFilters = DefaultFilters_getInstance().ALL;
     this.integratedTags = DefaultTags_getInstance().ALL;
@@ -6929,67 +7057,94 @@
     }
     return this;
   };
-  Object.defineProperty(TemplateConfig.prototype, 'extra', {
-    get: function () {
-      return this.$delegate_kgsda7$_0.extra;
-    },
-    set: function (tmp$) {
-      this.$delegate_kgsda7$_0.extra = tmp$;
-    }
-  });
   TemplateConfig.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'TemplateConfig',
-    interfaces: [Extra]
+    interfaces: []
   };
-  function Templates(root, includes, layouts, config, cache) {
+  var emptyMap = Kotlin.kotlin.collections.emptyMap_q3lmfv$;
+  function TemplateConfigWithTemplates(extraTags, extraFilters, extraFunctions) {
+    if (extraTags === void 0) {
+      extraTags = emptyList();
+    }
+    if (extraFilters === void 0) {
+      extraFilters = emptyList();
+    }
+    if (extraFunctions === void 0) {
+      extraFunctions = emptyList();
+    }
+    TemplateConfig.call(this, extraTags, extraFilters, extraFunctions);
+    this.templates = new Templates(TemplateProvider_0(emptyMap()), void 0, void 0, this);
+  }
+  TemplateConfigWithTemplates.prototype.cache_6taknv$ = function (value) {
+    this.templates.cache = value;
+    return this;
+  };
+  TemplateConfigWithTemplates.prototype.root_5kim2w$ = function (root, includes, layouts) {
     if (includes === void 0)
       includes = root;
     if (layouts === void 0)
       layouts = root;
-    if (config === void 0)
-      config = new TemplateConfig();
-    if (cache === void 0)
-      cache = true;
-    this.root = root;
-    this.includes = includes;
-    this.layouts = layouts;
-    this.config = config;
-    this.cache = cache;
-    this.tcache = new Templates$AsyncCache();
-  }
-  function Templates$AsyncCache() {
-    this.promises = LinkedHashMap_init();
-  }
-  Templates$AsyncCache.prototype.invalidateAll = function () {
-    this.promises.clear();
+    this.templates.root = root;
+    this.templates.includes = includes;
+    this.templates.layouts = layouts;
+    return this;
   };
-  function Coroutine$Templates$AsyncCache$invoke$lambda$lambda(closure$gen_0, continuation_0) {
+  TemplateConfigWithTemplates.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'TemplateConfigWithTemplates',
+    interfaces: [TemplateConfig]
+  };
+  function TemplateProvider() {
+  }
+  function TemplateProvider$NotFoundException(template) {
+    RuntimeException_init_0(this);
+    this.template = template;
+    this.name = 'TemplateProvider$NotFoundException';
+  }
+  TemplateProvider$NotFoundException.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'NotFoundException',
+    interfaces: [RuntimeException]
+  };
+  TemplateProvider.$metadata$ = {
+    kind: Kind_INTERFACE,
+    simpleName: 'TemplateProvider',
+    interfaces: []
+  };
+  function Coroutine$getSure($receiver_0, template_0, continuation_0) {
     CoroutineImpl.call(this, continuation_0);
     this.exceptionState_0 = 1;
-    this.local$closure$gen = closure$gen_0;
+    this.local$$receiver = $receiver_0;
+    this.local$template = template_0;
   }
-  Coroutine$Templates$AsyncCache$invoke$lambda$lambda.$metadata$ = {
+  Coroutine$getSure.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
     simpleName: null,
     interfaces: [CoroutineImpl]
   };
-  Coroutine$Templates$AsyncCache$invoke$lambda$lambda.prototype = Object.create(CoroutineImpl.prototype);
-  Coroutine$Templates$AsyncCache$invoke$lambda$lambda.prototype.constructor = Coroutine$Templates$AsyncCache$invoke$lambda$lambda;
-  Coroutine$Templates$AsyncCache$invoke$lambda$lambda.prototype.doResume = function () {
+  Coroutine$getSure.prototype = Object.create(CoroutineImpl.prototype);
+  Coroutine$getSure.prototype.constructor = Coroutine$getSure;
+  Coroutine$getSure.prototype.doResume = function () {
     do
       try {
         switch (this.state_0) {
           case 0:
+            var tmp$;
             this.state_0 = 2;
-            this.result_0 = this.local$closure$gen(this);
+            this.result_0 = this.local$$receiver.get_61zpoe$(this.local$template, this);
             if (this.result_0 === COROUTINE_SUSPENDED)
               return COROUTINE_SUSPENDED;
             continue;
           case 1:
             throw this.exception_0;
           case 2:
-            return this.result_0;
+            tmp$ = this.result_0;
+            if (tmp$ == null) {
+              throw new TemplateProvider$NotFoundException(this.local$template);
+            }
+
+            return tmp$;
           default:this.state_0 = 1;
             throw new Error('State Machine Unreachable execution');
         }
@@ -7006,35 +7161,45 @@
       }
      while (true);
   };
-  function Templates$AsyncCache$invoke$lambda$lambda(closure$gen_0) {
-    return function (continuation_0, suspended) {
-      var instance = new Coroutine$Templates$AsyncCache$invoke$lambda$lambda(closure$gen_0, continuation_0);
-      if (suspended)
-        return instance;
-      else
-        return instance.doResume(null);
-    };
+  function getSure($receiver_0, template_0, continuation_0, suspended) {
+    var instance = new Coroutine$getSure($receiver_0, template_0, continuation_0);
+    if (suspended)
+      return instance;
+    else
+      return instance.doResume(null);
   }
-  Templates$AsyncCache.prototype.invoke_vvrf4k$ = function (key, gen, continuation) {
-    var tmp$;
-    var $receiver = this.promises;
-    var tmp$_0;
-    var value = $receiver.get_11rb$(key);
-    if (value == null) {
-      var answer = asyncImmediately(continuation.context, Templates$AsyncCache$invoke$lambda$lambda(gen));
-      $receiver.put_xwzc9p$(key, answer);
-      tmp$_0 = answer;
-    }
-     else {
-      tmp$_0 = value;
-    }
-    return (Kotlin.isType(tmp$ = tmp$_0, Deferred) ? tmp$ : throwCCE()).await(continuation);
+  function TemplateProvider$ObjectLiteral(closure$map) {
+    this.closure$map = closure$map;
+  }
+  TemplateProvider$ObjectLiteral.prototype.get_61zpoe$ = function (template, continuation) {
+    return this.closure$map.get_11rb$(template);
   };
-  Templates$AsyncCache.$metadata$ = {
+  TemplateProvider$ObjectLiteral.$metadata$ = {
     kind: Kind_CLASS,
-    simpleName: 'AsyncCache',
-    interfaces: []
+    interfaces: [TemplateProvider]
   };
+  function TemplateProvider_0(map) {
+    return new TemplateProvider$ObjectLiteral(map);
+  }
+  function TemplateProvider_1(map) {
+    return TemplateProvider_0(toMap_0(map));
+  }
+  function Templates(root, includes, layouts, config, cache) {
+    if (includes === void 0)
+      includes = root;
+    if (layouts === void 0)
+      layouts = root;
+    if (config === void 0)
+      config = new TemplateConfig();
+    if (cache === void 0)
+      cache = true;
+    this.root = root;
+    this.includes = includes;
+    this.layouts = layouts;
+    this.config = config;
+    this.cache = cache;
+    this.tcache = new AsyncCache();
+  }
   Templates.prototype.invalidateCache = function () {
     this.tcache.invalidateAll();
   };
@@ -7093,7 +7258,6 @@
     CoroutineImpl.call(this, continuation_0);
     this.exceptionState_0 = 1;
     this.$this = $this;
-    this.local$tmp$ = void 0;
     this.local$name = name_0;
     this.local$callback = callback_0;
   }
@@ -7127,15 +7291,11 @@
           case 1:
             throw this.exception_0;
           case 2:
-            this.local$tmp$ = this.result_0;
-            this.state_0 = 4;
-            continue;
+            return this.result_0;
           case 3:
-            this.local$tmp$ = this.result_0;
-            this.state_0 = 4;
-            continue;
+            return this.result_0;
           case 4:
-            return this.local$tmp$;
+            return;
           default:this.state_0 = 1;
             throw new Error('State Machine Unreachable execution');
         }
@@ -7159,11 +7319,11 @@
     else
       return instance.doResume(null);
   };
-  function Coroutine$Templates$getInclude$lambda(this$Templates_0, closure$name_0, continuation_0) {
+  function Coroutine$Templates$getInclude$lambda(closure$name_0, this$Templates_0, continuation_0) {
     CoroutineImpl.call(this, continuation_0);
     this.exceptionState_0 = 1;
-    this.local$this$Templates = this$Templates_0;
     this.local$closure$name = closure$name_0;
+    this.local$this$Templates = this$Templates_0;
   }
   Coroutine$Templates$getInclude$lambda.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -7177,17 +7337,19 @@
       try {
         switch (this.state_0) {
           case 0:
+            var tmp$, tmp$_0;
             this.state_0 = 2;
-            this.result_0 = this.local$this$Templates.includes.get_61zpoe$(this.local$closure$name).readString_qa9gbo$(void 0, this);
+            this.result_0 = getSure(this.local$this$Templates.includes, this.local$closure$name, this);
             if (this.result_0 === COROUTINE_SUSPENDED)
               return COROUTINE_SUSPENDED;
             continue;
           case 1:
             throw this.exception_0;
           case 2:
-            var content = this.result_0;
+            tmp$ = this.result_0;
+            tmp$_0 = this.local$this$Templates.config;
             this.state_0 = 3;
-            this.result_0 = (new Template(this.local$closure$name, this.local$this$Templates, content, this.local$this$Templates.config)).init(this);
+            this.result_0 = (new Template(this.local$closure$name, this.local$this$Templates, tmp$, tmp$_0)).init(this);
             if (this.result_0 === COROUTINE_SUSPENDED)
               return COROUTINE_SUSPENDED;
             continue;
@@ -7209,9 +7371,9 @@
       }
      while (true);
   };
-  function Templates$getInclude$lambda(this$Templates_0, closure$name_0) {
+  function Templates$getInclude$lambda(closure$name_0, this$Templates_0) {
     return function (continuation_0, suspended) {
-      var instance = new Coroutine$Templates$getInclude$lambda(this$Templates_0, closure$name_0, continuation_0);
+      var instance = new Coroutine$Templates$getInclude$lambda(closure$name_0, this$Templates_0, continuation_0);
       if (suspended)
         return instance;
       else
@@ -7219,13 +7381,13 @@
     };
   }
   Templates.prototype.getInclude_61zpoe$ = function (name, continuation) {
-    return this.cache_dsgb6x$('include/' + name, Templates$getInclude$lambda(this, name), continuation);
+    return this.cache_dsgb6x$('include/' + name, Templates$getInclude$lambda(name, this), continuation);
   };
-  function Coroutine$Templates$getLayout$lambda(this$Templates_0, closure$name_0, continuation_0) {
+  function Coroutine$Templates$getLayout$lambda(closure$name_0, this$Templates_0, continuation_0) {
     CoroutineImpl.call(this, continuation_0);
     this.exceptionState_0 = 1;
-    this.local$this$Templates = this$Templates_0;
     this.local$closure$name = closure$name_0;
+    this.local$this$Templates = this$Templates_0;
   }
   Coroutine$Templates$getLayout$lambda.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -7239,17 +7401,19 @@
       try {
         switch (this.state_0) {
           case 0:
+            var tmp$, tmp$_0;
             this.state_0 = 2;
-            this.result_0 = this.local$this$Templates.layouts.get_61zpoe$(this.local$closure$name).readString_qa9gbo$(void 0, this);
+            this.result_0 = getSure(this.local$this$Templates.layouts, this.local$closure$name, this);
             if (this.result_0 === COROUTINE_SUSPENDED)
               return COROUTINE_SUSPENDED;
             continue;
           case 1:
             throw this.exception_0;
           case 2:
-            var content = this.result_0;
+            tmp$ = this.result_0;
+            tmp$_0 = this.local$this$Templates.config;
             this.state_0 = 3;
-            this.result_0 = (new Template(this.local$closure$name, this.local$this$Templates, content, this.local$this$Templates.config)).init(this);
+            this.result_0 = (new Template(this.local$closure$name, this.local$this$Templates, tmp$, tmp$_0)).init(this);
             if (this.result_0 === COROUTINE_SUSPENDED)
               return COROUTINE_SUSPENDED;
             continue;
@@ -7271,9 +7435,9 @@
       }
      while (true);
   };
-  function Templates$getLayout$lambda(this$Templates_0, closure$name_0) {
+  function Templates$getLayout$lambda(closure$name_0, this$Templates_0) {
     return function (continuation_0, suspended) {
-      var instance = new Coroutine$Templates$getLayout$lambda(this$Templates_0, closure$name_0, continuation_0);
+      var instance = new Coroutine$Templates$getLayout$lambda(closure$name_0, this$Templates_0, continuation_0);
       if (suspended)
         return instance;
       else
@@ -7281,13 +7445,13 @@
     };
   }
   Templates.prototype.getLayout_61zpoe$ = function (name, continuation) {
-    return this.cache_dsgb6x$('layout/' + name, Templates$getLayout$lambda(this, name), continuation);
+    return this.cache_dsgb6x$('layout/' + name, Templates$getLayout$lambda(name, this), continuation);
   };
-  function Coroutine$Templates$get$lambda(this$Templates_0, closure$name_0, continuation_0) {
+  function Coroutine$Templates$get$lambda(closure$name_0, this$Templates_0, continuation_0) {
     CoroutineImpl.call(this, continuation_0);
     this.exceptionState_0 = 1;
-    this.local$this$Templates = this$Templates_0;
     this.local$closure$name = closure$name_0;
+    this.local$this$Templates = this$Templates_0;
   }
   Coroutine$Templates$get$lambda.$metadata$ = {
     kind: Kotlin.Kind.CLASS,
@@ -7301,17 +7465,19 @@
       try {
         switch (this.state_0) {
           case 0:
+            var tmp$, tmp$_0;
             this.state_0 = 2;
-            this.result_0 = this.local$this$Templates.root.get_61zpoe$(this.local$closure$name).readString_qa9gbo$(void 0, this);
+            this.result_0 = getSure(this.local$this$Templates.root, this.local$closure$name, this);
             if (this.result_0 === COROUTINE_SUSPENDED)
               return COROUTINE_SUSPENDED;
             continue;
           case 1:
             throw this.exception_0;
           case 2:
-            var content = this.result_0;
+            tmp$ = this.result_0;
+            tmp$_0 = this.local$this$Templates.config;
             this.state_0 = 3;
-            this.result_0 = (new Template(this.local$closure$name, this.local$this$Templates, content, this.local$this$Templates.config)).init(this);
+            this.result_0 = (new Template(this.local$closure$name, this.local$this$Templates, tmp$, tmp$_0)).init(this);
             if (this.result_0 === COROUTINE_SUSPENDED)
               return COROUTINE_SUSPENDED;
             continue;
@@ -7333,9 +7499,9 @@
       }
      while (true);
   };
-  function Templates$get$lambda(this$Templates_0, closure$name_0) {
+  function Templates$get$lambda(closure$name_0, this$Templates_0) {
     return function (continuation_0, suspended) {
-      var instance = new Coroutine$Templates$get$lambda(this$Templates_0, closure$name_0, continuation_0);
+      var instance = new Coroutine$Templates$get$lambda(closure$name_0, this$Templates_0, continuation_0);
       if (suspended)
         return instance;
       else
@@ -7343,7 +7509,7 @@
     };
   }
   Templates.prototype.get_61zpoe$ = function (name, continuation) {
-    return this.cache_dsgb6x$(name, Templates$get$lambda(this, name), continuation);
+    return this.cache_dsgb6x$('base/' + name, Templates$get$lambda(name, this), continuation);
   };
   function Coroutine$render_jydrsy$($this, name_0, args_0, continuation_0) {
     CoroutineImpl.call(this, continuation_0);
@@ -7429,13 +7595,15 @@
           case 1:
             throw this.exception_0;
           case 2:
+            var template = this.result_0;
             this.state_0 = 3;
-            this.result_0 = this.result_0.invoke_ldct9y$(this.local$args, void 0, this);
+            this.result_0 = template.invoke_ldct9y$(this.local$args, void 0, this);
             if (this.result_0 === COROUTINE_SUSPENDED)
               return COROUTINE_SUSPENDED;
             continue;
           case 3:
-            return this.result_0;
+            var renderered = this.result_0;
+            return renderered;
           default:this.state_0 = 1;
             throw new Error('State Machine Unreachable execution');
         }
@@ -7578,6 +7746,209 @@
     simpleName: 'Templates',
     interfaces: []
   };
+  function FileContext(fileName, fileContent) {
+    FileContext$Companion_getInstance();
+    this.fileName = fileName;
+    this.fileContent = fileContent;
+    this.lines_24qmrf$_0 = lazy(FileContext$lines$lambda(this));
+    this.lineOffsets_wbr2y6$_0 = lazy(FileContext$lineOffsets$lambda(this));
+  }
+  Object.defineProperty(FileContext.prototype, 'lines', {
+    get: function () {
+      return this.lines_24qmrf$_0.value;
+    }
+  });
+  Object.defineProperty(FileContext.prototype, 'lineOffsets', {
+    get: function () {
+      return this.lineOffsets_wbr2y6$_0.value;
+    }
+  });
+  FileContext.prototype.findRow0At_za3lpa$ = function (pos) {
+    var tmp$;
+    tmp$ = this.lineOffsets.size - 1 | 0;
+    for (var n = 0; n < tmp$; n++) {
+      var start = this.lineOffsets.get_za3lpa$(n);
+      var end = this.lineOffsets.get_za3lpa$(n + 1 | 0);
+      if (start <= pos && pos < end)
+        return n;
+    }
+    return -1;
+  };
+  function FileContext$Companion() {
+    FileContext$Companion_instance = this;
+    this.DUMMY = new FileContext('unknown', '');
+  }
+  FileContext$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var FileContext$Companion_instance = null;
+  function FileContext$Companion_getInstance() {
+    if (FileContext$Companion_instance === null) {
+      new FileContext$Companion();
+    }
+    return FileContext$Companion_instance;
+  }
+  function FileContext$lines$lambda(this$FileContext) {
+    return function () {
+      return split_0(this$FileContext.fileContent, ['\n']);
+    };
+  }
+  function FileContext$lineOffsets$lambda(this$FileContext) {
+    return function () {
+      var $receiver = ArrayList_init();
+      var this$FileContext_0 = this$FileContext;
+      var tmp$;
+      var offset = 0;
+      tmp$ = this$FileContext_0.lines.iterator();
+      while (tmp$.hasNext()) {
+        var line = tmp$.next();
+        $receiver.add_11rb$(offset);
+        offset = offset + line.length | 0;
+      }
+      $receiver.add_11rb$(this$FileContext_0.fileContent.length);
+      return $receiver;
+    };
+  }
+  FileContext.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'FileContext',
+    interfaces: []
+  };
+  FileContext.prototype.component1 = function () {
+    return this.fileName;
+  };
+  FileContext.prototype.component2 = function () {
+    return this.fileContent;
+  };
+  FileContext.prototype.copy_puj7f4$ = function (fileName, fileContent) {
+    return new FileContext(fileName === void 0 ? this.fileName : fileName, fileContent === void 0 ? this.fileContent : fileContent);
+  };
+  FileContext.prototype.toString = function () {
+    return 'FileContext(fileName=' + Kotlin.toString(this.fileName) + (', fileContent=' + Kotlin.toString(this.fileContent)) + ')';
+  };
+  FileContext.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.fileName) | 0;
+    result = result * 31 + Kotlin.hashCode(this.fileContent) | 0;
+    return result;
+  };
+  FileContext.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.fileName, other.fileName) && Kotlin.equals(this.fileContent, other.fileContent)))));
+  };
+  function FilePosContext(file, pos) {
+    this.file = file;
+    this.pos = pos;
+    this.row0_7v1voy$_0 = lazy(FilePosContext$row0$lambda(this));
+  }
+  Object.defineProperty(FilePosContext.prototype, 'fileName', {
+    get: function () {
+      return this.file.fileName;
+    }
+  });
+  Object.defineProperty(FilePosContext.prototype, 'fileContent', {
+    get: function () {
+      return this.file.fileContent;
+    }
+  });
+  Object.defineProperty(FilePosContext.prototype, 'row0', {
+    get: function () {
+      return this.row0_7v1voy$_0.value;
+    }
+  });
+  Object.defineProperty(FilePosContext.prototype, 'row', {
+    get: function () {
+      return this.row0 + 1 | 0;
+    }
+  });
+  Object.defineProperty(FilePosContext.prototype, 'column0', {
+    get: function () {
+      return this.pos - this.file.lineOffsets.get_za3lpa$(this.row0) | 0;
+    }
+  });
+  Object.defineProperty(FilePosContext.prototype, 'column', {
+    get: function () {
+      return this.column0 + 1 | 0;
+    }
+  });
+  FilePosContext.prototype.withPosAdd_za3lpa$ = function (add) {
+    return this.copy_ovsk8w$(void 0, this.pos + add | 0);
+  };
+  FilePosContext.prototype.exception_61zpoe$ = function (msg) {
+    return korteException(msg, this);
+  };
+  FilePosContext.prototype.toString = function () {
+    return this.fileName + ':' + this.row + ':' + this.column;
+  };
+  function FilePosContext$row0$lambda(this$FilePosContext) {
+    return function () {
+      return this$FilePosContext.file.findRow0At_za3lpa$(this$FilePosContext.pos);
+    };
+  }
+  FilePosContext.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'FilePosContext',
+    interfaces: []
+  };
+  FilePosContext.prototype.component1 = function () {
+    return this.file;
+  };
+  FilePosContext.prototype.component2 = function () {
+    return this.pos;
+  };
+  FilePosContext.prototype.copy_ovsk8w$ = function (file, pos) {
+    return new FilePosContext(file === void 0 ? this.file : file, pos === void 0 ? this.pos : pos);
+  };
+  FilePosContext.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.file) | 0;
+    result = result * 31 + Kotlin.hashCode(this.pos) | 0;
+    return result;
+  };
+  FilePosContext.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.file, other.file) && Kotlin.equals(this.pos, other.pos)))));
+  };
+  function TokenContext() {
+  }
+  Object.defineProperty(TokenContext.prototype, 'posContext', {
+    get: function () {
+      return new FilePosContext(this.file, this.pos);
+    }
+  });
+  TokenContext.prototype.exception_61zpoe$ = function (msg) {
+    return this.posContext.exception_61zpoe$(msg);
+  };
+  function TokenContext$Mixin() {
+    this.file_6ki0wu$_0 = FileContext$Companion_getInstance().DUMMY;
+    this.pos_ftloxm$_0 = -1;
+  }
+  Object.defineProperty(TokenContext$Mixin.prototype, 'file', {
+    get: function () {
+      return this.file_6ki0wu$_0;
+    },
+    set: function (file) {
+      this.file_6ki0wu$_0 = file;
+    }
+  });
+  Object.defineProperty(TokenContext$Mixin.prototype, 'pos', {
+    get: function () {
+      return this.pos_ftloxm$_0;
+    },
+    set: function (pos) {
+      this.pos_ftloxm$_0 = pos;
+    }
+  });
+  TokenContext$Mixin.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'Mixin',
+    interfaces: [TokenContext]
+  };
+  TokenContext.$metadata$ = {
+    kind: Kind_INTERFACE,
+    simpleName: 'TokenContext',
+    interfaces: []
+  };
   function Token() {
     Token$Companion_getInstance();
     this.trimLeft = false;
@@ -7586,11 +7957,36 @@
   function Token$TLiteral(content) {
     Token.call(this);
     this.content = content;
+    this.$delegate_37fdyt$_0 = new TokenContext$Mixin();
   }
+  Object.defineProperty(Token$TLiteral.prototype, 'file', {
+    get: function () {
+      return this.$delegate_37fdyt$_0.file;
+    },
+    set: function (tmp$) {
+      this.$delegate_37fdyt$_0.file = tmp$;
+    }
+  });
+  Object.defineProperty(Token$TLiteral.prototype, 'pos', {
+    get: function () {
+      return this.$delegate_37fdyt$_0.pos;
+    },
+    set: function (tmp$) {
+      this.$delegate_37fdyt$_0.pos = tmp$;
+    }
+  });
+  Object.defineProperty(Token$TLiteral.prototype, 'posContext', {
+    get: function () {
+      return this.$delegate_37fdyt$_0.posContext;
+    }
+  });
+  Token$TLiteral.prototype.exception_61zpoe$ = function (msg) {
+    return this.$delegate_37fdyt$_0.exception_61zpoe$(msg);
+  };
   Token$TLiteral.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'TLiteral',
-    interfaces: [Token]
+    interfaces: [Token, TokenContext]
   };
   Token$TLiteral.prototype.component1 = function () {
     return this.content;
@@ -7612,11 +8008,36 @@
   function Token$TExpr(content) {
     Token.call(this);
     this.content = content;
+    this.$delegate_cgrs41$_0 = new TokenContext$Mixin();
   }
+  Object.defineProperty(Token$TExpr.prototype, 'file', {
+    get: function () {
+      return this.$delegate_cgrs41$_0.file;
+    },
+    set: function (tmp$) {
+      this.$delegate_cgrs41$_0.file = tmp$;
+    }
+  });
+  Object.defineProperty(Token$TExpr.prototype, 'pos', {
+    get: function () {
+      return this.$delegate_cgrs41$_0.pos;
+    },
+    set: function (tmp$) {
+      this.$delegate_cgrs41$_0.pos = tmp$;
+    }
+  });
+  Object.defineProperty(Token$TExpr.prototype, 'posContext', {
+    get: function () {
+      return this.$delegate_cgrs41$_0.posContext;
+    }
+  });
+  Token$TExpr.prototype.exception_61zpoe$ = function (msg) {
+    return this.$delegate_cgrs41$_0.exception_61zpoe$(msg);
+  };
   Token$TExpr.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'TExpr',
-    interfaces: [Token]
+    interfaces: [Token, TokenContext]
   };
   Token$TExpr.prototype.component1 = function () {
     return this.content;
@@ -7639,22 +8060,58 @@
     Token.call(this);
     this.name = name;
     this.content = content;
+    this.$delegate_yrs42o$_0 = new TokenContext$Mixin();
     this.tokens_dormmq$_0 = lazy(Token$TTag$tokens$lambda(this));
+    this.expr_kjbdpl$_0 = lazy(Token$TTag$expr$lambda(this));
   }
   Object.defineProperty(Token$TTag.prototype, 'tokens', {
     get: function () {
       return this.tokens_dormmq$_0.value;
     }
   });
+  Object.defineProperty(Token$TTag.prototype, 'expr', {
+    get: function () {
+      return this.expr_kjbdpl$_0.value;
+    }
+  });
+  Object.defineProperty(Token$TTag.prototype, 'file', {
+    get: function () {
+      return this.$delegate_yrs42o$_0.file;
+    },
+    set: function (tmp$) {
+      this.$delegate_yrs42o$_0.file = tmp$;
+    }
+  });
+  Object.defineProperty(Token$TTag.prototype, 'pos', {
+    get: function () {
+      return this.$delegate_yrs42o$_0.pos;
+    },
+    set: function (tmp$) {
+      this.$delegate_yrs42o$_0.pos = tmp$;
+    }
+  });
+  Object.defineProperty(Token$TTag.prototype, 'posContext', {
+    get: function () {
+      return this.$delegate_yrs42o$_0.posContext;
+    }
+  });
+  Token$TTag.prototype.exception_61zpoe$ = function (msg) {
+    return this.$delegate_yrs42o$_0.exception_61zpoe$(msg);
+  };
   function Token$TTag$tokens$lambda(this$TTag) {
     return function () {
-      return ExprNode$Token$Companion_getInstance().tokenize_61zpoe$(this$TTag.content);
+      return ExprNode$Token$Companion_getInstance().tokenize_3atvy$(this$TTag.content, this$TTag.posContext);
+    };
+  }
+  function Token$TTag$expr$lambda(this$TTag) {
+    return function () {
+      return ExprNode$Companion_getInstance().parse_yrs42o$(this$TTag);
     };
   }
   Token$TTag.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'TTag',
-    interfaces: [Token]
+    interfaces: [Token, TokenContext]
   };
   Token$TTag.prototype.component1 = function () {
     return this.name;
@@ -7680,8 +8137,8 @@
   function Token$Companion() {
     Token$Companion_instance = this;
   }
-  function Token$Companion$tokenize$emit(closure$out) {
-    return function (token) {
+  function Token$Companion$tokenize$emit(closure$out, closure$context) {
+    return function (token, pos) {
       var tmp$ = Kotlin.isType(token, Token$TLiteral);
       if (tmp$) {
         tmp$ = token.content.length === 0;
@@ -7689,16 +8146,18 @@
       if (tmp$)
         return;
       closure$out.add_11rb$(token);
+      token.file = closure$context.file;
+      token.pos = closure$context.pos + pos | 0;
     };
   }
   var get_lastIndex = Kotlin.kotlin.collections.get_lastIndex_55thoc$;
   var trimStart = Kotlin.kotlin.text.trimStart_gw00vp$;
   var trimEnd = Kotlin.kotlin.text.trimEnd_gw00vp$;
-  Token$Companion.prototype.tokenize_61zpoe$ = function (str) {
+  Token$Companion.prototype.tokenize_3atvy$ = function (str, context) {
     var tmp$, tmp$_0, tmp$_1;
     var out = ArrayList_init();
     var lastPos = 0;
-    var emit = Token$Companion$tokenize$emit(out);
+    var emit = Token$Companion$tokenize$emit(out, context);
     var pos = 0;
     loop: while (pos < str.length) {
       var c = str.charCodeAt((tmp$ = pos, pos = tmp$ + 1 | 0, tmp$));
@@ -7710,7 +8169,7 @@
           case 35:
             var startPos = pos - 2 | 0;
             if (lastPos !== startPos) {
-              emit(new Token$TLiteral(substring(str, until(lastPos, startPos))));
+              emit(new Token$TLiteral(substring(str, until(lastPos, startPos))), startPos);
             }
 
             var endCommentP1 = indexOf(str, '#}', pos);
@@ -7731,14 +8190,11 @@
             var $receiver = str.substring(p1, p2);
             var tmp$_2;
             var content = trim(Kotlin.isCharSequence(tmp$_2 = $receiver) ? tmp$_2 : throwCCE()).toString();
-            if (lastPos !== startPos_0) {
-              emit(new Token$TLiteral(substring(str, until(lastPos, startPos_0))));
-            }
-
-            if (c2 === 123) {
+            if (lastPos !== startPos_0)
+              emit(new Token$TLiteral(substring(str, until(lastPos, startPos_0))), startPos_0);
+            if (c2 === 123)
               tmp$_1 = new Token$TExpr(content);
-            }
-             else {
+            else {
               var parts = split(content, Kotlin.charArrayOf(32), void 0, 2);
               tmp$_1 = new Token$TTag(parts.get_za3lpa$(0), 1 >= 0 && 1 <= get_lastIndex(parts) ? parts.get_za3lpa$(1) : '');
             }
@@ -7746,7 +8202,7 @@
             var token = tmp$_1;
             token.trimLeft = trimLeft;
             token.trimRight = trimRight;
-            emit(token);
+            emit(token, p1);
             pos = pos2 + 2 | 0;
             lastPos = pos;
             break;
@@ -7755,7 +8211,7 @@
     }
     var startIndex = lastPos;
     var endIndex = str.length;
-    emit(new Token$TLiteral(str.substring(startIndex, endIndex)));
+    emit(new Token$TLiteral(str.substring(startIndex, endIndex)), lastPos);
     var n = 0;
     for (var tmp$_3 = out.iterator(); tmp$_3.hasNext(); ++n) {
       var cur = tmp$_3.next();
@@ -7778,9 +8234,8 @@
           var tmp$_11;
           tmp$_8 = new Token$TLiteral(trimEnd(Kotlin.isCharSequence(tmp$_11 = $receiver_2) ? tmp$_11 : throwCCE()).toString());
         }
-         else {
+         else
           tmp$_8 = cur;
-        }
         out.set_wxm5ur$(n, tmp$_8);
       }
     }
@@ -7801,7 +8256,7 @@
   Token.$metadata$ = {
     kind: Kind_CLASS,
     simpleName: 'Token',
-    interfaces: []
+    interfaces: [TokenContext]
   };
   function Dynamic2() {
     Dynamic2_instance = this;
@@ -7866,7 +8321,7 @@
         return this.contains_oaftn8$(r, l);
       case '?:':
         return this.toBool_s8jyv4$(l) ? l : r;
-      default:return noImpl("Not implemented binary operator '" + op + "'");
+      default:throw IllegalStateException_init(("Not implemented binary operator '" + op + "'").toString());
     }
   };
   Dynamic2.prototype.unop_hvn9da$ = function (r, op) {
@@ -7879,7 +8334,7 @@
         return ~this.toInt_s8jyv4$(r);
       case '!':
         return !this.toBool_s8jyv4$(r);
-      default:return noImpl('Not implemented unary operator ' + op);
+      default:throw IllegalStateException_init(('Not implemented unary operator ' + op).toString());
     }
   };
   Dynamic2.prototype.contains_oaftn8$ = function (collection, element) {
@@ -8632,16 +9087,1075 @@
     simpleName: 'ObjectMapper2',
     interfaces: []
   };
+  function AsyncCache() {
+    this.lock_0 = new KorteLock();
+    this.deferreds = LinkedHashMap_init();
+  }
+  AsyncCache.prototype.invalidateAll = function () {
+    this.deferreds.clear();
+  };
+  function Coroutine$AsyncCache$invoke$lambda$lambda$lambda(closure$gen_0, continuation_0) {
+    CoroutineImpl.call(this, continuation_0);
+    this.exceptionState_0 = 1;
+    this.local$closure$gen = closure$gen_0;
+  }
+  Coroutine$AsyncCache$invoke$lambda$lambda$lambda.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: null,
+    interfaces: [CoroutineImpl]
+  };
+  Coroutine$AsyncCache$invoke$lambda$lambda$lambda.prototype = Object.create(CoroutineImpl.prototype);
+  Coroutine$AsyncCache$invoke$lambda$lambda$lambda.prototype.constructor = Coroutine$AsyncCache$invoke$lambda$lambda$lambda;
+  Coroutine$AsyncCache$invoke$lambda$lambda$lambda.prototype.doResume = function () {
+    do
+      try {
+        switch (this.state_0) {
+          case 0:
+            this.state_0 = 2;
+            this.result_0 = this.local$closure$gen(this);
+            if (this.result_0 === COROUTINE_SUSPENDED)
+              return COROUTINE_SUSPENDED;
+            continue;
+          case 1:
+            throw this.exception_0;
+          case 2:
+            return this.result_0;
+          default:this.state_0 = 1;
+            throw new Error('State Machine Unreachable execution');
+        }
+      }
+       catch (e) {
+        if (this.state_0 === 1) {
+          this.exceptionState_0 = this.state_0;
+          throw e;
+        }
+         else {
+          this.state_0 = this.exceptionState_0;
+          this.exception_0 = e;
+        }
+      }
+     while (true);
+  };
+  function AsyncCache$invoke$lambda$lambda$lambda(closure$gen_0) {
+    return function (continuation_0, suspended) {
+      var instance = new Coroutine$AsyncCache$invoke$lambda$lambda$lambda(closure$gen_0, continuation_0);
+      if (suspended)
+        return instance;
+      else
+        return instance.doResume(null);
+    };
+  }
+  AsyncCache.prototype.invoke_vvrf4k$ = function (key, gen, continuation) {
+    var tmp$;
+    var $receiver = this.deferreds;
+    var tmp$_0;
+    var value = $receiver.get_11rb$(key);
+    if (value == null) {
+      var answer = KorteDeferred$Companion_getInstance().asyncImmediately_nt96rv$(continuation.context, AsyncCache$invoke$lambda$lambda$lambda(gen));
+      $receiver.put_xwzc9p$(key, answer);
+      tmp$_0 = answer;
+    }
+     else {
+      tmp$_0 = value;
+    }
+    var deferred = Kotlin.isType(tmp$ = tmp$_0, KorteDeferred) ? tmp$ : throwCCE();
+    return deferred.await(continuation);
+  };
+  AsyncCache.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'AsyncCache',
+    interfaces: []
+  };
+  function isWhitespaceFast($receiver) {
+    return $receiver === 32 || $receiver === 9 || $receiver === 13 || $receiver === 10;
+  }
+  function isDigit($receiver) {
+    return (new CharRange(48, 57)).contains_mef7kx$($receiver);
+  }
+  function isLetter($receiver) {
+    return (new CharRange(97, 122)).contains_mef7kx$($receiver) || (new CharRange(65, 90)).contains_mef7kx$($receiver);
+  }
+  function isLetterOrDigit($receiver) {
+    return isLetter($receiver) || isDigit($receiver);
+  }
+  function isLetterDigitOrUnderscore($receiver) {
+    return isLetterOrDigit($receiver) || $receiver === 95 || $receiver === 36;
+  }
+  var formatRegex;
+  var UInt_init = Kotlin.kotlin.UInt;
+  var StringBuilder_init_0 = Kotlin.kotlin.text.StringBuilder_init_za3lpa$;
+  function format($receiver, params) {
+    var paramIndex = {v: 0};
+    var $this = formatRegex;
+    var replace_20wsma$result;
+    replace_20wsma$break: do {
+      var match = $this.find_905azu$($receiver);
+      if (match == null) {
+        replace_20wsma$result = $receiver.toString();
+        break replace_20wsma$break;
+      }
+      var lastStart = 0;
+      var length = $receiver.length;
+      var sb = StringBuilder_init_0(length);
+      do {
+        var foundMatch = ensureNotNull(match);
+        sb.append_ezbsdh$($receiver, lastStart, foundMatch.range.start);
+        var tmp$ = sb.append_gw00v9$;
+        var tmp$_0, tmp$_1, tmp$_2, tmp$_3, tmp$_4;
+        var param = params[tmp$_0 = paramIndex.v, paramIndex.v = tmp$_0 + 1 | 0, tmp$_0];
+        var size = foundMatch.groupValues.get_za3lpa$(1);
+        var type = foundMatch.groupValues.get_za3lpa$(2);
+        switch (type) {
+          case 'd':
+            tmp$_4 = numberToLong(Kotlin.isNumber(tmp$_1 = param) ? tmp$_1 : throwCCE()).toString();
+            break;
+          case 'X':
+          case 'x':
+            if (typeof param === 'number') {
+              tmp$_3 = toString_0(new UInt_init(param), 16);
+            }
+             else
+              tmp$_3 = toString_1(numberToLong(Kotlin.isNumber(tmp$_2 = param) ? tmp$_2 : throwCCE()), 16);
+            var res = tmp$_3;
+            tmp$_4 = equals(type, 'X') ? res.toUpperCase() : res.toLowerCase();
+            break;
+          default:tmp$_4 = param.toString();
+            break;
+        }
+        var str = tmp$_4;
+        var prefix = startsWith_0(size, 48) ? 48 : 32;
+        var asize = toIntOrNull(size);
+        var str2 = str;
+        if (asize != null) {
+          while (str2.length < asize) {
+            var other = str2;
+            str2 = String.fromCharCode(prefix) + other;
+          }
+        }
+        tmp$.call(sb, str2);
+        lastStart = foundMatch.range.endInclusive + 1 | 0;
+        match = foundMatch.next();
+      }
+       while (lastStart < length && match != null);
+      if (lastStart < length) {
+        sb.append_ezbsdh$($receiver, lastStart, length);
+      }
+      replace_20wsma$result = sb.toString();
+    }
+     while (false);
+    return replace_20wsma$result;
+  }
+  function Hex() {
+    Hex_instance = this;
+    this.DIGITS_0 = '0123456789ABCDEF';
+    this.DIGITS_UPPER = this.DIGITS_0.toUpperCase();
+    this.DIGITS_LOWER = this.DIGITS_0.toLowerCase();
+  }
+  Hex.prototype.encodeCharLower_za3lpa$ = function (v) {
+    return toBoxedChar(this.DIGITS_LOWER.charCodeAt(v));
+  };
+  Hex.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Hex',
+    interfaces: []
+  };
+  var Hex_instance = null;
+  function Hex_getInstance() {
+    if (Hex_instance === null) {
+      new Hex();
+    }
+    return Hex_instance;
+  }
+  var charToEntity;
+  function htmlspecialchars($receiver) {
+    var $receiver_0 = StringBuilder_init();
+    var tmp$;
+    var str = $receiver;
+    tmp$ = str.length;
+    for (var n = 0; n < tmp$; n++) {
+      var it = str.charCodeAt(n);
+      var entry = charToEntity.get_11rb$(toBoxedChar(it));
+      if (entry != null)
+        $receiver_0.append_gw00v9$(entry);
+      else
+        $receiver_0.append_s8itvh$(it);
+    }
+    return $receiver_0.toString();
+  }
+  function umod($receiver, other) {
+    var tmp$;
+    var remainder = $receiver % other;
+    if (remainder < 0)
+      tmp$ = remainder + other | 0;
+    else
+      tmp$ = remainder;
+    return tmp$;
+  }
+  function mask($receiver) {
+    return (1 << $receiver) - 1 | 0;
+  }
+  function extract($receiver, offset, count) {
+    return $receiver >>> offset & mask(count);
+  }
+  function Json() {
+    Json_instance = this;
+  }
+  Json.prototype.stringify_s8jyv4$ = function (obj) {
+    var $receiver = StringBuilder_init();
+    this.stringify_dx15ti$(obj, $receiver);
+    return $receiver.toString();
+  };
+  Json.prototype.stringify_dx15ti$ = function (obj, b) {
+    if (obj == null)
+      b.append_gw00v9$('null');
+    else if (typeof obj === 'boolean')
+      b.append_gw00v9$(obj ? 'true' : 'false');
+    else if (Kotlin.isType(obj, Map)) {
+      b.append_s8itvh$(123);
+      var i = 0;
+      for (var tmp$ = obj.entries.iterator(); tmp$.hasNext(); ++i) {
+        var v = tmp$.next();
+        if (i !== 0)
+          b.append_s8itvh$(44);
+        this.stringify_dx15ti$(v.key, b);
+        b.append_s8itvh$(58);
+        this.stringify_dx15ti$(v.value, b);
+      }
+      b.append_s8itvh$(125);
+    }
+     else if (Kotlin.isType(obj, Iterable)) {
+      b.append_s8itvh$(91);
+      var i_0 = 0;
+      for (var tmp$_0 = obj.iterator(); tmp$_0.hasNext(); ++i_0) {
+        var v_0 = tmp$_0.next();
+        if (i_0 !== 0)
+          b.append_s8itvh$(44);
+        this.stringify_dx15ti$(v_0, b);
+      }
+      b.append_s8itvh$(93);
+    }
+     else if (Kotlin.isType(obj, Enum))
+      this.encodeString_0(obj.name, b);
+    else if (typeof obj === 'string')
+      this.encodeString_0(obj, b);
+    else if (Kotlin.isNumber(obj))
+      b.append_gw00v9$(toString(obj));
+    else
+      throw RuntimeException_init("Don't know how to serialize " + toString(obj));
+  };
+  Json.prototype.encodeString_0 = function (str, b) {
+    var tmp$;
+    b.append_s8itvh$(34);
+    tmp$ = iterator(str);
+    while (tmp$.hasNext()) {
+      var c = unboxChar(tmp$.next());
+      switch (c) {
+        case 92:
+          b.append_gw00v9$('\\\\');
+          break;
+        case 47:
+          b.append_gw00v9$('\\/');
+          break;
+        case 39:
+          b.append_gw00v9$("\\'");
+          break;
+        case 34:
+          b.append_gw00v9$('\\"');
+          break;
+        case 8:
+          b.append_gw00v9$('\\b');
+          break;
+        case 12:
+          b.append_gw00v9$('\\f');
+          break;
+        case 10:
+          b.append_gw00v9$('\\n');
+          break;
+        case 13:
+          b.append_gw00v9$('\\r');
+          break;
+        case 9:
+          b.append_gw00v9$('\\t');
+          break;
+        default:b.append_s8itvh$(c);
+          break;
+      }
+    }
+    b.append_s8itvh$(34);
+  };
+  Json.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Json',
+    interfaces: []
+  };
+  var Json_instance = null;
+  function Json_getInstance() {
+    if (Json_instance === null) {
+      new Json();
+    }
+    return Json_instance;
+  }
   var KORTE_VERSION;
-  var alloc2 = defineInlineFunction('korte.com.soywiz.korte.internal.alloc2_jg02o$', function ($receiver, callback) {
-    var temp = $receiver.alloc();
+  function Pool(reset, preallocate, gen) {
+    if (reset === void 0)
+      reset = Pool_init$lambda;
+    if (preallocate === void 0)
+      preallocate = 0;
+    this.reset_0 = reset;
+    this.gen_0 = gen;
+    this.items_0 = ArrayList_init();
+    this.lastId_0 = 0;
+    var tmp$, tmp$_0;
+    tmp$ = preallocate;
+    for (var n = 0; n < tmp$; n++) {
+      this.items_0.add_11rb$(this.gen_0((tmp$_0 = this.lastId_0, this.lastId_0 = tmp$_0 + 1 | 0, tmp$_0)));
+    }
+  }
+  Pool.prototype.alloc = function () {
+    var tmp$;
+    if (!this.items_0.isEmpty())
+      return this.items_0.removeAt_za3lpa$(this.items_0.size - 1 | 0);
+    else {
+      return this.gen_0((tmp$ = this.lastId_0, this.lastId_0 = tmp$ + 1 | 0, tmp$));
+    }
+  };
+  Pool.prototype.free_11rb$ = function (element) {
+    this.reset_0(element);
+    this.items_0.add_11rb$(element);
+  };
+  Pool.prototype.alloc_2o04qz$ = defineInlineFunction('korte.com.soywiz.korte.internal.Pool.alloc_2o04qz$', function (callback) {
+    var temp = this.alloc();
     try {
       return callback(temp);
     }
     finally {
-      $receiver.free_11rb$(temp);
+      this.free_11rb$(temp);
     }
   });
+  function Pool_init$lambda(it) {
+    return Unit;
+  }
+  Pool.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'Pool',
+    interfaces: []
+  };
+  function Pool_init(preallocate, gen, $this) {
+    if (preallocate === void 0)
+      preallocate = 0;
+    $this = $this || Object.create(Pool.prototype);
+    Pool.call($this, Pool_init$lambda_0, preallocate, gen);
+    return $this;
+  }
+  function Pool_init$lambda_0(it) {
+    return Unit;
+  }
+  function StrReader(str, pos) {
+    if (pos === void 0)
+      pos = 0;
+    this.str = str;
+    this.pos = pos;
+  }
+  Object.defineProperty(StrReader.prototype, 'length', {
+    get: function () {
+      return this.str.length;
+    }
+  });
+  Object.defineProperty(StrReader.prototype, 'hasMore', {
+    get: function () {
+      return this.pos < this.length;
+    }
+  });
+  StrReader.prototype.skipWhile_akknk2$ = defineInlineFunction('korte.com.soywiz.korte.internal.StrReader.skipWhile_akknk2$', wrapFunction(function () {
+    return function (f) {
+      while (this.hasMore && f(this.peek()))
+        this.skip();
+    };
+  }));
+  StrReader.prototype.skipUntil_akknk2$ = function (f) {
+    while (true) {
+      var tmp$ = this.hasMore;
+      if (tmp$) {
+        tmp$ = !f(this.peek());
+      }
+      if (!tmp$)
+        break;
+      this.skip();
+    }
+  };
+  StrReader.prototype.posSkip_0 = function (count) {
+    var out = this.pos;
+    this.pos = this.pos + count | 0;
+    return out;
+  };
+  StrReader.prototype.skip = function () {
+    return this.skip_za3lpa$(1);
+  };
+  StrReader.prototype.peek = function () {
+    return this.hasMore ? this.str.charCodeAt(this.pos) : 0;
+  };
+  StrReader.prototype.read = function () {
+    return this.hasMore ? this.str.charCodeAt(this.posSkip_0(1)) : 0;
+  };
+  StrReader.prototype.unread = function () {
+    return this.skip_za3lpa$(-1);
+  };
+  StrReader.prototype.substr_vux9f0$ = function (start, len) {
+    if (len === void 0)
+      len = this.length - this.pos | 0;
+    var start_0 = coerceIn(start, 0, this.length);
+    var end = coerceIn(start_0 + len | 0, 0, this.length);
+    return this.str.substring(start_0, end);
+  };
+  StrReader.prototype.skip_za3lpa$ = function (count) {
+    this.pos = this.pos + count | 0;
+    return this;
+  };
+  StrReader.prototype.peek_za3lpa$ = function (count) {
+    return this.substr_vux9f0$(this.pos, count);
+  };
+  StrReader.prototype.read_za3lpa$ = function (count) {
+    var $receiver = this.peek_za3lpa$(count);
+    this.skip_za3lpa$(count);
+    return $receiver;
+  };
+  function StrReader$readUntil$lambda(closure$v) {
+    return function (it) {
+      return unboxChar(it) === closure$v;
+    };
+  }
+  StrReader.prototype.readUntil_s8itvh$ = function (v) {
+    var start = this.pos;
+    this.skipUntil_akknk2$(StrReader$readUntil$lambda(v));
+    var end = this.pos;
+    return this.hasMore ? this.str.substring(start, end) : null;
+  };
+  StrReader.prototype.readBlock_0 = function (callback) {
+    var start = this.pos;
+    callback();
+    var end = this.pos;
+    return this.substr_vux9f0$(start, end - start | 0);
+  };
+  StrReader.prototype.skipSpaces = function () {
+    while (true) {
+      var tmp$ = this.hasMore;
+      if (tmp$) {
+        tmp$ = isWhitespaceFast(unboxChar(this.peek()));
+      }
+      if (!tmp$)
+        break;
+      this.skip();
+    }
+  };
+  StrReader.prototype.readWhile_akknk2$ = function (f) {
+    var start = this.pos;
+    while (this.hasMore && f(this.peek()))
+      this.skip();
+    var end = this.pos;
+    return this.substr_vux9f0$(start, end - start | 0);
+  };
+  StrReader.prototype.readUntil_akknk2$ = function (f) {
+    var start = this.pos;
+    this.skipUntil_akknk2$(f);
+    var end = this.pos;
+    return this.substr_vux9f0$(start, end - start | 0);
+  };
+  StrReader.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'StrReader',
+    interfaces: []
+  };
+  function readStringLit($receiver, reportErrors) {
+    if (reportErrors === void 0)
+      reportErrors = true;
+    var tmp$;
+    var out = StringBuilder_init();
+    var quotec = unboxChar($receiver.read());
+    switch (quotec) {
+      case 34:
+      case 39:
+        break;
+      default:throw RuntimeException_init('Invalid string literal');
+    }
+    var closed = false;
+    while ($receiver.hasMore) {
+      var c = unboxChar($receiver.read());
+      if (c === 92) {
+        var cc = unboxChar($receiver.read());
+        switch (cc) {
+          case 92:
+            tmp$ = 92;
+            break;
+          case 47:
+            tmp$ = 47;
+            break;
+          case 39:
+            tmp$ = 39;
+            break;
+          case 34:
+            tmp$ = 34;
+            break;
+          case 98:
+            tmp$ = 8;
+            break;
+          case 102:
+            tmp$ = 12;
+            break;
+          case 110:
+            tmp$ = 10;
+            break;
+          case 114:
+            tmp$ = 13;
+            break;
+          case 116:
+            tmp$ = 9;
+            break;
+          case 117:
+            tmp$ = toChar(toInt_0($receiver.read_za3lpa$(4), 16));
+            break;
+          default:throw RuntimeException_init("Invalid char '" + String.fromCharCode(cc) + "'");
+        }
+        out.append_s8itvh$(tmp$);
+      }
+       else if (c === quotec) {
+        closed = true;
+        break;
+      }
+       else {
+        out.append_s8itvh$(c);
+      }
+    }
+    if (!closed && reportErrors) {
+      throw RuntimeException_init("String literal not closed! '" + $receiver.str + "'");
+    }
+    return out.toString();
+  }
+  function isPrintable($receiver) {
+    return (new CharRange(32, 126)).contains_mef7kx$($receiver) || (new CharRange(161, 255)).contains_mef7kx$($receiver);
+  }
+  function escape($receiver) {
+    var tmp$;
+    var out = StringBuilder_init();
+    tmp$ = $receiver.length;
+    for (var n = 0; n < tmp$; n++) {
+      var c = $receiver.charCodeAt(n);
+      switch (c) {
+        case 92:
+          out.append_gw00v9$('\\\\');
+          break;
+        case 34:
+          out.append_gw00v9$('\\"');
+          break;
+        case 10:
+          out.append_gw00v9$('\\n');
+          break;
+        case 13:
+          out.append_gw00v9$('\\r');
+          break;
+        case 9:
+          out.append_gw00v9$('\\t');
+          break;
+        default:if ((new CharRange(0, 31)).contains_mef7kx$(c)) {
+            out.append_gw00v9$('\\x');
+            out.append_s8itvh$(unboxChar(Hex_getInstance().encodeCharLower_za3lpa$(extract(c | 0, 4, 4))));
+            out.append_s8itvh$(unboxChar(Hex_getInstance().encodeCharLower_za3lpa$(extract(c | 0, 0, 4))));
+          }
+           else
+            out.append_s8itvh$(c);
+          break;
+      }
+    }
+    return out.toString();
+  }
+  function uescape($receiver) {
+    var tmp$;
+    var out = StringBuilder_init();
+    tmp$ = $receiver.length;
+    for (var n = 0; n < tmp$; n++) {
+      var c = $receiver.charCodeAt(n);
+      switch (c) {
+        case 92:
+          out.append_gw00v9$('\\\\');
+          break;
+        case 34:
+          out.append_gw00v9$('\\"');
+          break;
+        case 10:
+          out.append_gw00v9$('\\n');
+          break;
+        case 13:
+          out.append_gw00v9$('\\r');
+          break;
+        case 9:
+          out.append_gw00v9$('\\t');
+          break;
+        default:if (isPrintable(c)) {
+            out.append_s8itvh$(c);
+          }
+           else {
+            out.append_gw00v9$('\\u');
+            out.append_s8itvh$(unboxChar(Hex_getInstance().encodeCharLower_za3lpa$(extract(c | 0, 12, 4))));
+            out.append_s8itvh$(unboxChar(Hex_getInstance().encodeCharLower_za3lpa$(extract(c | 0, 8, 4))));
+            out.append_s8itvh$(unboxChar(Hex_getInstance().encodeCharLower_za3lpa$(extract(c | 0, 4, 4))));
+            out.append_s8itvh$(unboxChar(Hex_getInstance().encodeCharLower_za3lpa$(extract(c | 0, 0, 4))));
+          }
+
+          break;
+      }
+    }
+    return out.toString();
+  }
+  function unescape($receiver) {
+    var tmp$, tmp$_0;
+    var out = StringBuilder_init();
+    var n = 0;
+    while (n < $receiver.length) {
+      var c = $receiver.charCodeAt((tmp$ = n, n = tmp$ + 1 | 0, tmp$));
+      if (c === 92) {
+        var c2 = $receiver.charCodeAt((tmp$_0 = n, n = tmp$_0 + 1 | 0, tmp$_0));
+        switch (c2) {
+          case 92:
+            out.append_s8itvh$(92);
+            break;
+          case 34:
+            out.append_s8itvh$(34);
+            break;
+          case 110:
+            out.append_s8itvh$(10);
+            break;
+          case 114:
+            out.append_s8itvh$(13);
+            break;
+          case 116:
+            out.append_s8itvh$(9);
+            break;
+          case 117:
+            var startIndex = n;
+            var endIndex = n + 4 | 0;
+            var chars = $receiver.substring(startIndex, endIndex);
+            n = n + 4 | 0;
+            out.append_s8itvh$(toChar(toInt_0(chars, 16)));
+            break;
+          default:out.append_gw00v9$('\\' + String.fromCharCode(c2));
+            break;
+        }
+      }
+       else
+        out.append_s8itvh$(c);
+    }
+    return out.toString();
+  }
+  function uquote($receiver) {
+    return $receiver != null ? '"' + uescape($receiver) + '"' : 'null';
+  }
+  function quote($receiver) {
+    return $receiver != null ? '"' + escape($receiver) + '"' : 'null';
+  }
+  function isQuoted($receiver) {
+    return startsWith_0($receiver, 34) && endsWith($receiver, 34);
+  }
+  function unquote($receiver) {
+    var tmp$;
+    if (isQuoted($receiver)) {
+      var endIndex = $receiver.length - 1 | 0;
+      tmp$ = unescape($receiver.substring(1, endIndex));
+    }
+     else
+      tmp$ = $receiver;
+    return tmp$;
+  }
+  function get_quoted($receiver) {
+    return quote($receiver);
+  }
+  function get_unquoted($receiver) {
+    return unquote($receiver);
+  }
+  function Yaml() {
+    Yaml_instance = this;
+    this.TRACE = false;
+  }
+  Yaml.prototype.decode_61zpoe$ = function (str) {
+    return this.read_0(new ListReader(this.tokenize_ut4i55$(new StrReader(str))), 0);
+  };
+  Yaml.prototype.read_61zpoe$ = function (str) {
+    return this.read_0(new ListReader(this.tokenize_ut4i55$(new StrReader(str))), 0);
+  };
+  Yaml.prototype.parseStr_1 = function (tok) {
+    if (Kotlin.isType(tok, Yaml$Token$STR))
+      return tok.ustr;
+    else
+      return this.parseStr_0(tok.str);
+  };
+  Yaml.prototype.parseStr_0 = function (str) {
+    var tmp$, tmp$_0;
+    switch (str) {
+      case 'null':
+        return null;
+      case 'true':
+        return true;
+      case 'false':
+        return false;
+      default:return (tmp$_0 = (tmp$ = toIntOrNull(str)) != null ? tmp$ : toDoubleOrNull(str)) != null ? tmp$_0 : str;
+    }
+  };
+  Yaml.prototype.read_0 = function (s, level) {
+    var tmp$;
+    var list = null;
+    var map = null;
+    var levelStr = this.TRACE ? repeat('  ', level) : '';
+    linehandle: while (s.hasMore) {
+      var token = s.peek();
+      var line = Kotlin.isType(tmp$ = token, Yaml$Token$LINE) ? tmp$ : null;
+      var lineLevel = line != null ? line.level : null;
+      if (this.TRACE && line != null)
+        println(levelStr + 'LINE(' + toString(lineLevel) + ')');
+      if (lineLevel != null && lineLevel > level) {
+        var res = this.read_0(s, lineLevel);
+        if (list != null) {
+          if (this.TRACE)
+            println(levelStr + 'CHILD.list.add: ' + toString(res));
+          list.add_11rb$(res);
+        }
+         else {
+          if (this.TRACE)
+            println(levelStr + 'CHILD.return: ' + toString(res));
+          return res;
+        }
+      }
+       else if (lineLevel != null && lineLevel < level) {
+        if (this.TRACE)
+          println(levelStr + 'PARENT: level < line.level');
+        break;
+      }
+       else {
+        if (line != null)
+          s.read();
+        if (s.eof)
+          break;
+        var item = s.peek();
+        switch (item.str) {
+          case '-':
+            if (!equals(s.read().str, '-'))
+              throw RuntimeException_init_0();
+            if (list == null) {
+              list = ArrayList_init();
+            }
+
+            if (this.TRACE)
+              println(levelStr + 'LIST_ITEM...');
+            var res_0 = this.read_0(s, level + 1 | 0);
+            if (this.TRACE)
+              println(levelStr + 'LIST_ITEM: ' + toString(res_0));
+            list.add_11rb$(res_0);
+            break;
+          case '[':
+            if (!equals(s.read().str, '['))
+              throw RuntimeException_init_0();
+            var olist = ArrayList_init();
+            array: while (!equals(s.peek().str, ']')) {
+              var element = this.read_0(s, level + 1 | 0);
+              olist.add_11rb$(element);
+              var p = s.peek().str;
+              switch (p) {
+                case ',':
+                  s.read();
+                  continue array;
+                case ']':
+                  break array;
+                default:throw RuntimeException_init("Unexpected '" + p + "'");
+              }
+            }
+
+            if (!equals(s.read().str, ']'))
+              throw RuntimeException_init_0();
+            return olist;
+          default:var kkey = s.read();
+            var key = kkey.str;
+            if (s.eof || !equals(s.peek().str, ':')) {
+              if (this.TRACE)
+                println(levelStr + 'LIT: ' + key);
+              return this.parseStr_1(kkey);
+            }
+             else {
+              if (map == null)
+                map = LinkedHashMap_init();
+              if (!equals(s.read().str, ':'))
+                throw RuntimeException_init_0();
+              if (this.TRACE)
+                println(levelStr + 'MAP[' + key + ']...');
+              var value = this.read_0(s, level + 1 | 0);
+              map.put_xwzc9p$(key, value);
+              if (this.TRACE)
+                println(levelStr + 'MAP[' + key + ']: ' + toString(value));
+            }
+
+            break;
+        }
+      }
+    }
+    if (this.TRACE)
+      println(levelStr + 'RETURN: list=' + toString(list) + ', map=' + toString(map));
+    return list != null ? list : map;
+  };
+  var isBlank = Kotlin.kotlin.text.isBlank_gw00vp$;
+  function Yaml$tokenize$flush(closure$str, closure$out) {
+    return function () {
+      var tmp$ = !isBlank(closure$str.v);
+      if (tmp$) {
+        tmp$ = closure$str.v.length > 0;
+      }
+      if (tmp$) {
+        var tmp$_0 = closure$out;
+        var $receiver = closure$str.v;
+        var tmp$_1;
+        var element = new Yaml$Token$ID(trim(Kotlin.isCharSequence(tmp$_1 = $receiver) ? tmp$_1 : throwCCE()).toString());
+        tmp$_0.add_11rb$(element);
+        closure$str.v = '';
+      }
+    };
+  }
+  Yaml.prototype.tokenize_ut4i55$ = function ($receiver) {
+    var out = ArrayList_init();
+    var s = $receiver;
+    var str = {v: ''};
+    var flush = Yaml$tokenize$flush(str, out);
+    var indents = ArrayList_init();
+    linestart: while ($receiver.hasMore) {
+      flush();
+      var indentStr = replace($receiver.readWhile_akknk2$(getCallableRef('isWhitespace', function ($receiver) {
+        return isWhitespace(unboxChar($receiver));
+      })), '\t', '     ');
+      var indent = indentStr.length;
+      if (indents.isEmpty() || indent > last(indents)) {
+        indents.add_11rb$(indent);
+      }
+       else {
+        while (!indents.isEmpty() && indent < last(indents)) {
+          indents.removeAt_za3lpa$(indents.size - 1 | 0);
+        }
+        if (indents.isEmpty())
+          throw RuntimeException_init_0();
+      }
+      var indentLevel = indents.size - 1 | 0;
+      while (!out.isEmpty() && Kotlin.isType(last(out), Yaml$Token$LINE)) {
+        out.removeAt_za3lpa$(out.size - 1 | 0);
+      }
+      var element = new Yaml$Token$LINE(indentStr, indentLevel);
+      out.add_11rb$(element);
+      while ($receiver.hasMore) {
+        var c = unboxChar($receiver.read());
+        switch (c) {
+          case 58:
+          case 45:
+          case 91:
+          case 93:
+          case 44:
+            flush();
+            var element_0 = new Yaml$Token$SYMBOL(String.fromCharCode(c));
+            out.add_11rb$(element_0);
+            break;
+          case 35:
+            flush();
+            this.readUntilLineEnd_ut4i55$($receiver);
+            $receiver.skip();
+            continue linestart;
+          case 10:
+            flush();
+            continue linestart;
+          case 34:
+          case 39:
+            flush();
+            s.unread();
+            var element_1 = new Yaml$Token$STR(readStringLit(s));
+            out.add_11rb$(element_1);
+            break;
+          default:str.v += String.fromCharCode(c);
+            break;
+        }
+      }
+    }
+    flush();
+    return out;
+  };
+  function Yaml$Token() {
+  }
+  function Yaml$Token$LINE(str, level) {
+    this.str_ge2s3$_0 = str;
+    this.level = level;
+  }
+  Object.defineProperty(Yaml$Token$LINE.prototype, 'str', {
+    get: function () {
+      return this.str_ge2s3$_0;
+    }
+  });
+  Yaml$Token$LINE.prototype.toString = function () {
+    return 'LINE(' + this.level + ')';
+  };
+  Yaml$Token$LINE.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'LINE',
+    interfaces: [Yaml$Token]
+  };
+  Yaml$Token$LINE.prototype.component1 = function () {
+    return this.str;
+  };
+  Yaml$Token$LINE.prototype.component2 = function () {
+    return this.level;
+  };
+  Yaml$Token$LINE.prototype.copy_bm4lxs$ = function (str, level) {
+    return new Yaml$Token$LINE(str === void 0 ? this.str : str, level === void 0 ? this.level : level);
+  };
+  Yaml$Token$LINE.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.str) | 0;
+    result = result * 31 + Kotlin.hashCode(this.level) | 0;
+    return result;
+  };
+  Yaml$Token$LINE.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.str, other.str) && Kotlin.equals(this.level, other.level)))));
+  };
+  function Yaml$Token$ID(str) {
+    this.str_qgqdkk$_0 = str;
+  }
+  Object.defineProperty(Yaml$Token$ID.prototype, 'str', {
+    get: function () {
+      return this.str_qgqdkk$_0;
+    }
+  });
+  Yaml$Token$ID.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'ID',
+    interfaces: [Yaml$Token]
+  };
+  Yaml$Token$ID.prototype.component1 = function () {
+    return this.str;
+  };
+  Yaml$Token$ID.prototype.copy_61zpoe$ = function (str) {
+    return new Yaml$Token$ID(str === void 0 ? this.str : str);
+  };
+  Yaml$Token$ID.prototype.toString = function () {
+    return 'ID(str=' + Kotlin.toString(this.str) + ')';
+  };
+  Yaml$Token$ID.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.str) | 0;
+    return result;
+  };
+  Yaml$Token$ID.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.str, other.str))));
+  };
+  function Yaml$Token$STR(str) {
+    this.str_2rzuie$_0 = str;
+    this.ustr = unquote(this.str);
+  }
+  Object.defineProperty(Yaml$Token$STR.prototype, 'str', {
+    get: function () {
+      return this.str_2rzuie$_0;
+    }
+  });
+  Yaml$Token$STR.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'STR',
+    interfaces: [Yaml$Token]
+  };
+  Yaml$Token$STR.prototype.component1 = function () {
+    return this.str;
+  };
+  Yaml$Token$STR.prototype.copy_61zpoe$ = function (str) {
+    return new Yaml$Token$STR(str === void 0 ? this.str : str);
+  };
+  Yaml$Token$STR.prototype.toString = function () {
+    return 'STR(str=' + Kotlin.toString(this.str) + ')';
+  };
+  Yaml$Token$STR.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.str) | 0;
+    return result;
+  };
+  Yaml$Token$STR.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.str, other.str))));
+  };
+  function Yaml$Token$SYMBOL(str) {
+    this.str_hj108f$_0 = str;
+  }
+  Object.defineProperty(Yaml$Token$SYMBOL.prototype, 'str', {
+    get: function () {
+      return this.str_hj108f$_0;
+    }
+  });
+  Yaml$Token$SYMBOL.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'SYMBOL',
+    interfaces: [Yaml$Token]
+  };
+  Yaml$Token$SYMBOL.prototype.component1 = function () {
+    return this.str;
+  };
+  Yaml$Token$SYMBOL.prototype.copy_61zpoe$ = function (str) {
+    return new Yaml$Token$SYMBOL(str === void 0 ? this.str : str);
+  };
+  Yaml$Token$SYMBOL.prototype.toString = function () {
+    return 'SYMBOL(str=' + Kotlin.toString(this.str) + ')';
+  };
+  Yaml$Token$SYMBOL.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.str) | 0;
+    return result;
+  };
+  Yaml$Token$SYMBOL.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.str, other.str))));
+  };
+  Yaml$Token.$metadata$ = {
+    kind: Kind_INTERFACE,
+    simpleName: 'Token',
+    interfaces: []
+  };
+  function Yaml$readUntilLineEnd$lambda(it) {
+    return unboxChar(it) === 10;
+  }
+  Yaml.prototype.readUntilLineEnd_ut4i55$ = function ($receiver) {
+    return $receiver.readUntil_akknk2$(Yaml$readUntilLineEnd$lambda);
+  };
+  Yaml.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Yaml',
+    interfaces: []
+  };
+  var Yaml_instance = null;
+  function Yaml_getInstance() {
+    if (Yaml_instance === null) {
+      new Yaml();
+    }
+    return Yaml_instance;
+  }
+  function extraProperty(getExtraMap, name, default_0) {
+    if (name === void 0)
+      name = null;
+    this.getExtraMap = getExtraMap;
+    this.name = name;
+    this.default = default_0;
+  }
+  extraProperty.prototype.getValue_lrcp0p$ = defineInlineFunction('korte.com.soywiz.korte.internal.extraProperty.getValue_lrcp0p$', wrapFunction(function () {
+    var Any = Object;
+    var throwCCE = Kotlin.throwCCE;
+    return function (thisRef, property) {
+      var tmp$, tmp$_0, tmp$_1;
+      return (tmp$_1 = (tmp$_0 = this.getExtraMap(thisRef).get_11rb$((tmp$ = this.name) != null ? tmp$ : property.callableName)) == null || Kotlin.isType(tmp$_0, Any) ? tmp$_0 : throwCCE()) != null ? tmp$_1 : this.default();
+    };
+  }));
+  extraProperty.prototype.setValue_qaepf2$ = defineInlineFunction('korte.com.soywiz.korte.internal.extraProperty.setValue_qaepf2$', wrapFunction(function () {
+    return function (thisRef, property, value) {
+      var tmp$, tmp$_0;
+      tmp$_0 = this.getExtraMap(thisRef);
+      var key = (tmp$ = this.name) != null ? tmp$ : property.callableName;
+      tmp$_0.put_xwzc9p$(key, value);
+    };
+  }));
+  extraProperty.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'extraProperty',
+    interfaces: []
+  };
   function AsyncTextWriterContainer() {
   }
   AsyncTextWriterContainer.$metadata$ = {
@@ -8649,6 +10163,225 @@
     simpleName: 'AsyncTextWriterContainer',
     interfaces: []
   };
+  function KorteDeferred() {
+    KorteDeferred$Companion_getInstance();
+    this.lock_0 = new KorteLock();
+    this.result_0 = null;
+    this.continuations_0 = ArrayList_init();
+  }
+  KorteDeferred.prototype.completeWith_tl1gpc$ = function (result) {
+    this.result_0 = result;
+    this.resolveIfRequired_0();
+  };
+  var createFailure = Kotlin.kotlin.createFailure_tcv7n7$;
+  var Result_init = Kotlin.kotlin.Result;
+  KorteDeferred.prototype.completeExceptionally_tcv7n7$ = function (t) {
+    this.completeWith_tl1gpc$(new Result_init(createFailure(t)));
+  };
+  KorteDeferred.prototype.complete_11rb$ = function (value) {
+    this.completeWith_tl1gpc$(new Result_init(value));
+  };
+  function KorteDeferred$await$lambda(this$KorteDeferred) {
+    return function (c) {
+      this$KorteDeferred.continuations_0.add_11rb$(c);
+      this$KorteDeferred.resolveIfRequired_0();
+      return Unit;
+    };
+  }
+  var intercepted = Kotlin.kotlin.coroutines.intrinsics.intercepted_f9mg25$;
+  var SafeContinuation_init = Kotlin.kotlin.coroutines.SafeContinuation_init_wj8d80$;
+  function suspendCoroutine$lambda(closure$block) {
+    return function (c) {
+      var safe = SafeContinuation_init(intercepted(c));
+      closure$block(safe);
+      return safe.getOrThrow();
+    };
+  }
+  function Coroutine$await($this, continuation_0) {
+    CoroutineImpl.call(this, continuation_0);
+    this.exceptionState_0 = 1;
+    this.$this = $this;
+  }
+  Coroutine$await.$metadata$ = {
+    kind: Kotlin.Kind.CLASS,
+    simpleName: null,
+    interfaces: [CoroutineImpl]
+  };
+  Coroutine$await.prototype = Object.create(CoroutineImpl.prototype);
+  Coroutine$await.prototype.constructor = Coroutine$await;
+  Coroutine$await.prototype.doResume = function () {
+    do
+      try {
+        switch (this.state_0) {
+          case 0:
+            this.state_0 = 2;
+            this.result_0 = suspendCoroutine$lambda(KorteDeferred$await$lambda(this.$this))(this);
+            if (this.result_0 === COROUTINE_SUSPENDED)
+              return COROUTINE_SUSPENDED;
+            continue;
+          case 1:
+            throw this.exception_0;
+          case 2:
+            this.result_0;
+            return this.result_0;
+          default:this.state_0 = 1;
+            throw new Error('State Machine Unreachable execution');
+        }
+      }
+       catch (e) {
+        if (this.state_0 === 1) {
+          this.exceptionState_0 = this.state_0;
+          throw e;
+        }
+         else {
+          this.state_0 = this.exceptionState_0;
+          this.exception_0 = e;
+        }
+      }
+     while (true);
+  };
+  KorteDeferred.prototype.await = function (continuation_0, suspended) {
+    var instance = new Coroutine$await(this, continuation_0);
+    if (suspended)
+      return instance;
+    else
+      return instance.doResume(null);
+  };
+  KorteDeferred.prototype.resolveIfRequired_0 = function () {
+    var tmp$;
+    if (!this.continuations_0.isEmpty()) {
+      var result = this.result_0;
+      if (result != null) {
+        var copy = toList(this.continuations_0);
+        this.continuations_0.clear();
+        tmp$ = copy.iterator();
+        while (tmp$.hasNext()) {
+          var v = tmp$.next();
+          v.resumeWith_tl1gpc$(result);
+        }
+      }
+    }
+  };
+  function KorteDeferred$toContinuation$ObjectLiteral(this$KorteDeferred, closure$coroutineContext) {
+    this.this$KorteDeferred = this$KorteDeferred;
+    this.context_bzlv0r$_0 = closure$coroutineContext;
+  }
+  Object.defineProperty(KorteDeferred$toContinuation$ObjectLiteral.prototype, 'context', {
+    get: function () {
+      return this.context_bzlv0r$_0;
+    }
+  });
+  KorteDeferred$toContinuation$ObjectLiteral.prototype.resumeWith_tl1gpc$ = function (result) {
+    this.this$KorteDeferred.completeWith_tl1gpc$(result);
+  };
+  KorteDeferred$toContinuation$ObjectLiteral.$metadata$ = {
+    kind: Kind_CLASS,
+    interfaces: [Continuation]
+  };
+  KorteDeferred.prototype.toContinuation_1fupul$ = function (coroutineContext) {
+    return new KorteDeferred$toContinuation$ObjectLiteral(this, coroutineContext);
+  };
+  function KorteDeferred$Companion() {
+    KorteDeferred$Companion_instance = this;
+  }
+  function KorteDeferred$Companion$asyncImmediately$lambda$ObjectLiteral(closure$deferred, closure$coroutineContext) {
+    this.closure$deferred = closure$deferred;
+    this.context_nk4qas$_0 = closure$coroutineContext;
+  }
+  Object.defineProperty(KorteDeferred$Companion$asyncImmediately$lambda$ObjectLiteral.prototype, 'context', {
+    get: function () {
+      return this.context_nk4qas$_0;
+    }
+  });
+  KorteDeferred$Companion$asyncImmediately$lambda$ObjectLiteral.prototype.resumeWith_tl1gpc$ = function (result) {
+    this.closure$deferred.completeWith_tl1gpc$(result);
+  };
+  KorteDeferred$Companion$asyncImmediately$lambda$ObjectLiteral.$metadata$ = {
+    kind: Kind_CLASS,
+    interfaces: [Continuation]
+  };
+  KorteDeferred$Companion.prototype.asyncImmediately_nt96rv$ = function (coroutineContext, callback) {
+    var $receiver = new KorteDeferred();
+    startCoroutine(callback, new KorteDeferred$Companion$asyncImmediately$lambda$ObjectLiteral($receiver, coroutineContext));
+    return $receiver;
+  };
+  KorteDeferred$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var KorteDeferred$Companion_instance = null;
+  function KorteDeferred$Companion_getInstance() {
+    if (KorteDeferred$Companion_instance === null) {
+      new KorteDeferred$Companion();
+    }
+    return KorteDeferred$Companion_instance;
+  }
+  KorteDeferred.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'KorteDeferred',
+    interfaces: []
+  };
+  function ListReader(list) {
+    this.list = list;
+    this.position = 0;
+  }
+  Object.defineProperty(ListReader.prototype, 'size', {
+    get: function () {
+      return this.list.size;
+    }
+  });
+  Object.defineProperty(ListReader.prototype, 'eof', {
+    get: function () {
+      return this.position >= this.list.size;
+    }
+  });
+  Object.defineProperty(ListReader.prototype, 'hasMore', {
+    get: function () {
+      return this.position < this.list.size;
+    }
+  });
+  ListReader.prototype.peek = function () {
+    return this.list.get_za3lpa$(this.position);
+  };
+  ListReader.prototype.skip_za3lpa$ = function (count) {
+    if (count === void 0)
+      count = 1;
+    this.position = this.position + count | 0;
+    return this;
+  };
+  ListReader.prototype.read = function () {
+    var $receiver = this.peek();
+    this.skip_za3lpa$(1);
+    return $receiver;
+  };
+  ListReader.prototype.toString = function () {
+    return 'ListReader(' + this.list + ')';
+  };
+  ListReader.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'ListReader',
+    interfaces: []
+  };
+  function reader($receiver) {
+    return new ListReader($receiver);
+  }
+  function expect_0($receiver, value) {
+    var v = $receiver.read();
+    if (!equals(v, value)) {
+      throw IllegalStateException_init(("Expecting '" + value + "' but found '" + v + "'").toString());
+    }
+    return v;
+  }
+  function dump($receiver) {
+    var tmp$;
+    println('ListReader:');
+    tmp$ = $receiver.list.iterator();
+    while (tmp$.hasNext()) {
+      var item = tmp$.next();
+      println(' - ' + item);
+    }
+  }
   function JsObjectMapper2() {
     ObjectMapper2.call(this);
   }
@@ -8659,8 +10392,6 @@
   JsObjectMapper2.prototype.hasMethod_hwpqgh$ = function (instance, key) {
     return typeof instance[key] !== 'undefined';
   };
-  var Result = Kotlin.kotlin.Result;
-  var createFailure = Kotlin.kotlin.createFailure_tcv7n7$;
   function JsObjectMapper2$invokeAsync$lambda(closure$function, closure$args, closure$instance) {
     return function (c) {
       var tmp$;
@@ -8673,13 +10404,13 @@
       try {
         var result = closure$function.apply(closure$instance, copyToArray(rargs));
         if (result != COROUTINE_SUSPENDED) {
-          c.resumeWith_tl1gpc$(new Result(result));
+          c.resumeWith_tl1gpc$(new Result_init(result));
         }
       }
        catch (e) {
         if (Kotlin.isType(e, Throwable)) {
           var exception = e;
-          c.resumeWith_tl1gpc$(new Result(createFailure(exception)));
+          c.resumeWith_tl1gpc$(new Result_init(createFailure(exception)));
         }
          else
           throw e;
@@ -8687,9 +10418,7 @@
       return Unit;
     };
   }
-  var intercepted = Kotlin.kotlin.coroutines.intrinsics.intercepted_f9mg25$;
-  var SafeContinuation_init = Kotlin.kotlin.coroutines.SafeContinuation_init_wj8d80$;
-  function suspendCoroutine$lambda(closure$block) {
+  function suspendCoroutine$lambda_0(closure$block) {
     return function (c) {
       var safe = SafeContinuation_init(intercepted(c));
       closure$block(safe);
@@ -8738,7 +10467,7 @@
           case 3:
             var function_0 = this.local$tmp$;
             this.state_0 = 4;
-            this.result_0 = suspendCoroutine$lambda(JsObjectMapper2$invokeAsync$lambda(function_0, this.local$args, this.local$instance))(this);
+            this.result_0 = suspendCoroutine$lambda_0(JsObjectMapper2$invokeAsync$lambda(function_0, this.local$args, this.local$instance))(this);
             if (this.result_0 === COROUTINE_SUSPENDED)
               return COROUTINE_SUSPENDED;
             continue;
@@ -8780,6 +10509,16 @@
     interfaces: [ObjectMapper2]
   };
   var Mapper2;
+  function KorteLock() {
+  }
+  KorteLock.prototype.invoke_klfg04$ = defineInlineFunction('korte.com.soywiz.korte.internal.KorteLock.invoke_klfg04$', function (callback) {
+    return callback();
+  });
+  KorteLock.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'KorteLock',
+    interfaces: []
+  };
   Block$Companion.prototype.Parse = Block$Companion$Parse;
   Object.defineProperty(Block, 'Companion', {
     get: Block$Companion_getInstance
@@ -8788,11 +10527,10 @@
   var package$soywiz = package$com.soywiz || (package$com.soywiz = {});
   var package$korte = package$soywiz.korte || (package$soywiz.korte = {});
   package$korte.Block = Block;
-  $$importsForInline$$.kds = $module$kds;
+  $$importsForInline$$.korte = _;
   package$korte.get_debugPrintln_4tl21a$ = get_debugPrintln;
   package$korte.set_debugPrintln_6j3ls1$ = set_debugPrintln;
   DefaultBlocks.prototype.BlockBlock = DefaultBlocks$BlockBlock;
-  $$importsForInline$$.korte = _;
   DefaultBlocks.prototype.BlockCapture = DefaultBlocks$BlockCapture;
   DefaultBlocks.prototype.BlockDebug = DefaultBlocks$BlockDebug;
   DefaultBlocks.prototype.BlockExpr = DefaultBlocks$BlockExpr;
@@ -8835,23 +10573,24 @@
   ExprNode$Token.TString = ExprNode$Token$TString;
   ExprNode$Token.TOperator = ExprNode$Token$TOperator;
   ExprNode$Token.TEnd = ExprNode$Token$TEnd;
-  $$importsForInline$$.korio = $module$korio;
   Object.defineProperty(ExprNode$Token, 'Companion', {
     get: ExprNode$Token$Companion_getInstance
   });
   ExprNode.Token = ExprNode$Token;
   package$korte.ExprNode = ExprNode;
-  package$korte.tryRead_5tyh7i$ = tryRead;
-  package$korte.expectPeek_5tyh7i$ = expectPeek;
-  package$korte.expect_5tyh7i$ = expect;
-  package$korte.parseExpr_lmtahz$ = parseExpr;
-  package$korte.parseId_lmtahz$ = parseId;
-  package$korte.parseIdList_lmtahz$ = parseIdList;
+  package$korte.tryRead_ypora7$ = tryRead;
+  package$korte.expectPeek_ypora7$ = expectPeek;
+  package$korte.expect_ypora7$ = expect;
+  package$korte.parseExpr_yk6r7o$ = parseExpr;
+  package$korte.parseId_yk6r7o$ = parseId;
+  package$korte.parseIdList_yk6r7o$ = parseIdList;
   Filter.Ctx = Filter$Ctx;
   package$korte.Filter = Filter;
   Object.defineProperty(package$korte, 'Korte', {
     get: Korte_getInstance
   });
+  package$korte.KorteException = KorteException;
+  package$korte.korteException_3atvy$ = korteException;
   package$korte.RawString = RawString;
   package$korte.toEscapedString_mzud1t$ = toEscapedString;
   Tag.Part = Tag$Part;
@@ -8871,8 +10610,20 @@
   Template.EvalContext = Template$EvalContext;
   package$korte.Template_dz0gfh$ = Template_0;
   package$korte.TemplateConfig = TemplateConfig;
-  Templates.AsyncCache = Templates$AsyncCache;
+  package$korte.TemplateConfigWithTemplates = TemplateConfigWithTemplates;
+  TemplateProvider.NotFoundException = TemplateProvider$NotFoundException;
+  package$korte.TemplateProvider = TemplateProvider;
+  package$korte.getSure_c2i00v$ = getSure;
+  package$korte.TemplateProvider_y0zsll$ = TemplateProvider_0;
+  package$korte.TemplateProvider_9ih0sy$ = TemplateProvider_1;
   package$korte.Templates = Templates;
+  Object.defineProperty(FileContext, 'Companion', {
+    get: FileContext$Companion_getInstance
+  });
+  package$korte.FileContext = FileContext;
+  package$korte.FilePosContext = FilePosContext;
+  TokenContext.Mixin = TokenContext$Mixin;
+  package$korte.TokenContext = TokenContext;
   Token.TLiteral = Token$TLiteral;
   Token.TExpr = Token$TExpr;
   Token.TTag = Token$TTag;
@@ -8895,29 +10646,77 @@
   package$dynamic.DynamicType = DynamicType_0;
   package$dynamic.ObjectMapper2 = ObjectMapper2;
   var package$internal = package$korte.internal || (package$korte.internal = {});
+  package$internal.AsyncCache = AsyncCache;
+  package$internal.isWhitespaceFast_myv2d0$ = isWhitespaceFast;
+  package$internal.isDigit_myv2d0$ = isDigit;
+  package$internal.isLetter_myv2d0$ = isLetter;
+  package$internal.isLetterOrDigit_myv2d0$ = isLetterOrDigit;
+  package$internal.isLetterDigitOrUnderscore_nupfqh$ = isLetterDigitOrUnderscore;
+  package$internal.format_lz5pqg$ = format;
+  Object.defineProperty(package$internal, 'Hex', {
+    get: Hex_getInstance
+  });
+  package$internal.htmlspecialchars_7efafi$ = htmlspecialchars;
+  package$internal.umod_b6l1hq$ = umod;
+  package$internal.mask_8e50z4$ = mask;
+  package$internal.extract_h8snvo$ = extract;
+  Object.defineProperty(package$internal, 'Json', {
+    get: Json_getInstance
+  });
   Object.defineProperty(package$internal, 'KORTE_VERSION_8be2vx$', {
     get: function () {
       return KORTE_VERSION;
     }
   });
-  package$internal.alloc2_jg02o$ = alloc2;
+  package$internal.Pool_init_rz0iom$ = Pool_init;
+  package$internal.Pool = Pool;
+  package$internal.StrReader = StrReader;
+  package$internal.readStringLit_adlwrl$ = readStringLit;
+  package$internal.isPrintable_nupfqh$ = isPrintable;
+  package$internal.escape_7efafi$ = escape;
+  package$internal.uescape_7efafi$ = uescape;
+  package$internal.unescape_7efafi$ = unescape;
+  package$internal.uquote_gbttu9$ = uquote;
+  package$internal.quote_gbttu9$ = quote;
+  package$internal.isQuoted_7efafi$ = isQuoted;
+  package$internal.unquote_7efafi$ = unquote;
+  package$internal.get_quoted_gbttu9$ = get_quoted;
+  package$internal.get_unquoted_7efafi$ = get_unquoted;
+  Yaml$Token.LINE = Yaml$Token$LINE;
+  Yaml$Token.ID = Yaml$Token$ID;
+  Yaml$Token.STR = Yaml$Token$STR;
+  Yaml$Token.SYMBOL = Yaml$Token$SYMBOL;
+  Yaml.prototype.Token = Yaml$Token;
+  Object.defineProperty(package$internal, 'Yaml', {
+    get: Yaml_getInstance
+  });
+  package$internal.extraProperty = extraProperty;
   var package$util = package$korte.util || (package$korte.util = {});
   package$util.AsyncTextWriterContainer = AsyncTextWriterContainer;
+  Object.defineProperty(KorteDeferred, 'Companion', {
+    get: KorteDeferred$Companion_getInstance
+  });
+  package$util.KorteDeferred = KorteDeferred;
+  package$util.ListReader = ListReader;
+  package$util.reader_2p1efm$ = reader;
+  package$util.expect_kg3eel$ = expect_0;
+  package$util.dump_e7u9n7$ = dump;
   package$dynamic.JsObjectMapper2 = JsObjectMapper2;
   Object.defineProperty(package$dynamic, 'Mapper2', {
     get: function () {
       return Mapper2;
     }
   });
-  Block.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
+  package$internal.KorteLock = KorteLock;
+  Block.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
+  Block.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
+  Block.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
+  Block.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
+  Block.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
   Block.prototype.toDynamicBool_mzud1t$ = DynamicContext.prototype.toDynamicBool_mzud1t$;
   Block.prototype.toDynamicInt_mzud1t$ = DynamicContext.prototype.toDynamicInt_mzud1t$;
   Block.prototype.toDynamicList_mzud1t$ = DynamicContext.prototype.toDynamicList_mzud1t$;
-  Block.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
-  Block.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
-  Block.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
-  Block.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
-  Block.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
+  Block.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
   DefaultBlocks$BlockBlock.prototype.toDynamicString_mzud1t$ = Block.prototype.toDynamicString_mzud1t$;
   DefaultBlocks$BlockBlock.prototype.toDynamicBool_mzud1t$ = Block.prototype.toDynamicBool_mzud1t$;
   DefaultBlocks$BlockBlock.prototype.toDynamicInt_mzud1t$ = Block.prototype.toDynamicInt_mzud1t$;
@@ -9035,114 +10834,116 @@
   DefaultBlocks$BlockText.prototype.dynamicSet_b48med$ = Block.prototype.dynamicSet_b48med$;
   DefaultBlocks$BlockText.prototype.dynamicCall_ihivg6$ = Block.prototype.dynamicCall_ihivg6$;
   DefaultBlocks$BlockText.prototype.dynamicCallMethod_w3s0wy$ = Block.prototype.dynamicCallMethod_w3s0wy$;
-  DefaultTags$Switch$lambda$ObjectLiteral.prototype.toDynamicString_mzud1t$ = Block.prototype.toDynamicString_mzud1t$;
+  DefaultTags$Switch$lambda$ObjectLiteral.prototype.dynamicCall_ihivg6$ = Block.prototype.dynamicCall_ihivg6$;
+  DefaultTags$Switch$lambda$ObjectLiteral.prototype.dynamicCallMethod_w3s0wy$ = Block.prototype.dynamicCallMethod_w3s0wy$;
+  DefaultTags$Switch$lambda$ObjectLiteral.prototype.dynamicGet_slmq2v$ = Block.prototype.dynamicGet_slmq2v$;
+  DefaultTags$Switch$lambda$ObjectLiteral.prototype.dynamicLength_mzud1t$ = Block.prototype.dynamicLength_mzud1t$;
+  DefaultTags$Switch$lambda$ObjectLiteral.prototype.dynamicSet_b48med$ = Block.prototype.dynamicSet_b48med$;
   DefaultTags$Switch$lambda$ObjectLiteral.prototype.toDynamicBool_mzud1t$ = Block.prototype.toDynamicBool_mzud1t$;
   DefaultTags$Switch$lambda$ObjectLiteral.prototype.toDynamicInt_mzud1t$ = Block.prototype.toDynamicInt_mzud1t$;
   DefaultTags$Switch$lambda$ObjectLiteral.prototype.toDynamicList_mzud1t$ = Block.prototype.toDynamicList_mzud1t$;
-  DefaultTags$Switch$lambda$ObjectLiteral.prototype.dynamicLength_mzud1t$ = Block.prototype.dynamicLength_mzud1t$;
-  DefaultTags$Switch$lambda$ObjectLiteral.prototype.dynamicGet_slmq2v$ = Block.prototype.dynamicGet_slmq2v$;
-  DefaultTags$Switch$lambda$ObjectLiteral.prototype.dynamicSet_b48med$ = Block.prototype.dynamicSet_b48med$;
-  DefaultTags$Switch$lambda$ObjectLiteral.prototype.dynamicCall_ihivg6$ = Block.prototype.dynamicCall_ihivg6$;
-  DefaultTags$Switch$lambda$ObjectLiteral.prototype.dynamicCallMethod_w3s0wy$ = Block.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
+  DefaultTags$Switch$lambda$ObjectLiteral.prototype.toDynamicString_mzud1t$ = Block.prototype.toDynamicString_mzud1t$;
+  ExprNode.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
+  ExprNode.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
+  ExprNode.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
+  ExprNode.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
   ExprNode.prototype.toDynamicBool_mzud1t$ = DynamicContext.prototype.toDynamicBool_mzud1t$;
   ExprNode.prototype.toDynamicInt_mzud1t$ = DynamicContext.prototype.toDynamicInt_mzud1t$;
   ExprNode.prototype.toDynamicList_mzud1t$ = DynamicContext.prototype.toDynamicList_mzud1t$;
-  ExprNode.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
-  ExprNode.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
-  ExprNode.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
-  ExprNode.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
-  ExprNode.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode$VAR.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
+  ExprNode$VAR.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
+  ExprNode$VAR.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$VAR.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
+  ExprNode$VAR.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
+  ExprNode$VAR.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
   ExprNode$VAR.prototype.toDynamicBool_mzud1t$ = ExprNode.prototype.toDynamicBool_mzud1t$;
   ExprNode$VAR.prototype.toDynamicInt_mzud1t$ = ExprNode.prototype.toDynamicInt_mzud1t$;
   ExprNode$VAR.prototype.toDynamicList_mzud1t$ = ExprNode.prototype.toDynamicList_mzud1t$;
-  ExprNode$VAR.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
-  ExprNode$VAR.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
-  ExprNode$VAR.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
-  ExprNode$VAR.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
-  ExprNode$VAR.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode$LIT.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$VAR.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$LIT.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
+  ExprNode$LIT.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$LIT.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
+  ExprNode$LIT.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
+  ExprNode$LIT.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
   ExprNode$LIT.prototype.toDynamicBool_mzud1t$ = ExprNode.prototype.toDynamicBool_mzud1t$;
   ExprNode$LIT.prototype.toDynamicInt_mzud1t$ = ExprNode.prototype.toDynamicInt_mzud1t$;
   ExprNode$LIT.prototype.toDynamicList_mzud1t$ = ExprNode.prototype.toDynamicList_mzud1t$;
-  ExprNode$LIT.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
-  ExprNode$LIT.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
-  ExprNode$LIT.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
-  ExprNode$LIT.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
-  ExprNode$LIT.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode$ARRAY_LIT.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$LIT.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$ARRAY_LIT.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
+  ExprNode$ARRAY_LIT.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$ARRAY_LIT.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
+  ExprNode$ARRAY_LIT.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
+  ExprNode$ARRAY_LIT.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
   ExprNode$ARRAY_LIT.prototype.toDynamicBool_mzud1t$ = ExprNode.prototype.toDynamicBool_mzud1t$;
   ExprNode$ARRAY_LIT.prototype.toDynamicInt_mzud1t$ = ExprNode.prototype.toDynamicInt_mzud1t$;
   ExprNode$ARRAY_LIT.prototype.toDynamicList_mzud1t$ = ExprNode.prototype.toDynamicList_mzud1t$;
-  ExprNode$ARRAY_LIT.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
-  ExprNode$ARRAY_LIT.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
-  ExprNode$ARRAY_LIT.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
-  ExprNode$ARRAY_LIT.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
-  ExprNode$ARRAY_LIT.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode$OBJECT_LIT.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$ARRAY_LIT.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$OBJECT_LIT.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
+  ExprNode$OBJECT_LIT.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$OBJECT_LIT.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
+  ExprNode$OBJECT_LIT.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
+  ExprNode$OBJECT_LIT.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
   ExprNode$OBJECT_LIT.prototype.toDynamicBool_mzud1t$ = ExprNode.prototype.toDynamicBool_mzud1t$;
   ExprNode$OBJECT_LIT.prototype.toDynamicInt_mzud1t$ = ExprNode.prototype.toDynamicInt_mzud1t$;
   ExprNode$OBJECT_LIT.prototype.toDynamicList_mzud1t$ = ExprNode.prototype.toDynamicList_mzud1t$;
-  ExprNode$OBJECT_LIT.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
-  ExprNode$OBJECT_LIT.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
-  ExprNode$OBJECT_LIT.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
-  ExprNode$OBJECT_LIT.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
-  ExprNode$OBJECT_LIT.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode$FILTER.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$OBJECT_LIT.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$FILTER.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
+  ExprNode$FILTER.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$FILTER.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
+  ExprNode$FILTER.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
+  ExprNode$FILTER.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
   ExprNode$FILTER.prototype.toDynamicBool_mzud1t$ = ExprNode.prototype.toDynamicBool_mzud1t$;
   ExprNode$FILTER.prototype.toDynamicInt_mzud1t$ = ExprNode.prototype.toDynamicInt_mzud1t$;
   ExprNode$FILTER.prototype.toDynamicList_mzud1t$ = ExprNode.prototype.toDynamicList_mzud1t$;
-  ExprNode$FILTER.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
-  ExprNode$FILTER.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
-  ExprNode$FILTER.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
-  ExprNode$FILTER.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
-  ExprNode$FILTER.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode$ACCESS.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$FILTER.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$ACCESS.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
+  ExprNode$ACCESS.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$ACCESS.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
+  ExprNode$ACCESS.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
+  ExprNode$ACCESS.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
   ExprNode$ACCESS.prototype.toDynamicBool_mzud1t$ = ExprNode.prototype.toDynamicBool_mzud1t$;
   ExprNode$ACCESS.prototype.toDynamicInt_mzud1t$ = ExprNode.prototype.toDynamicInt_mzud1t$;
   ExprNode$ACCESS.prototype.toDynamicList_mzud1t$ = ExprNode.prototype.toDynamicList_mzud1t$;
-  ExprNode$ACCESS.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
-  ExprNode$ACCESS.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
-  ExprNode$ACCESS.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
-  ExprNode$ACCESS.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
-  ExprNode$ACCESS.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode$CALL.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$ACCESS.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$CALL.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
+  ExprNode$CALL.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$CALL.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
+  ExprNode$CALL.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
+  ExprNode$CALL.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
   ExprNode$CALL.prototype.toDynamicBool_mzud1t$ = ExprNode.prototype.toDynamicBool_mzud1t$;
   ExprNode$CALL.prototype.toDynamicInt_mzud1t$ = ExprNode.prototype.toDynamicInt_mzud1t$;
   ExprNode$CALL.prototype.toDynamicList_mzud1t$ = ExprNode.prototype.toDynamicList_mzud1t$;
-  ExprNode$CALL.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
-  ExprNode$CALL.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
-  ExprNode$CALL.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
-  ExprNode$CALL.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
-  ExprNode$CALL.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode$BINOP.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$CALL.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$BINOP.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
+  ExprNode$BINOP.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$BINOP.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
+  ExprNode$BINOP.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
+  ExprNode$BINOP.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
   ExprNode$BINOP.prototype.toDynamicBool_mzud1t$ = ExprNode.prototype.toDynamicBool_mzud1t$;
   ExprNode$BINOP.prototype.toDynamicInt_mzud1t$ = ExprNode.prototype.toDynamicInt_mzud1t$;
   ExprNode$BINOP.prototype.toDynamicList_mzud1t$ = ExprNode.prototype.toDynamicList_mzud1t$;
-  ExprNode$BINOP.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
-  ExprNode$BINOP.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
-  ExprNode$BINOP.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
-  ExprNode$BINOP.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
-  ExprNode$BINOP.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode$TERNARY.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$BINOP.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$TERNARY.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
+  ExprNode$TERNARY.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$TERNARY.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
+  ExprNode$TERNARY.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
+  ExprNode$TERNARY.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
   ExprNode$TERNARY.prototype.toDynamicBool_mzud1t$ = ExprNode.prototype.toDynamicBool_mzud1t$;
   ExprNode$TERNARY.prototype.toDynamicInt_mzud1t$ = ExprNode.prototype.toDynamicInt_mzud1t$;
   ExprNode$TERNARY.prototype.toDynamicList_mzud1t$ = ExprNode.prototype.toDynamicList_mzud1t$;
-  ExprNode$TERNARY.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
-  ExprNode$TERNARY.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
-  ExprNode$TERNARY.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
-  ExprNode$TERNARY.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
-  ExprNode$TERNARY.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
-  ExprNode$UNOP.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$TERNARY.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  ExprNode$UNOP.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
+  ExprNode$UNOP.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$UNOP.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
+  ExprNode$UNOP.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
+  ExprNode$UNOP.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
   ExprNode$UNOP.prototype.toDynamicBool_mzud1t$ = ExprNode.prototype.toDynamicBool_mzud1t$;
   ExprNode$UNOP.prototype.toDynamicInt_mzud1t$ = ExprNode.prototype.toDynamicInt_mzud1t$;
   ExprNode$UNOP.prototype.toDynamicList_mzud1t$ = ExprNode.prototype.toDynamicList_mzud1t$;
-  ExprNode$UNOP.prototype.dynamicLength_mzud1t$ = ExprNode.prototype.dynamicLength_mzud1t$;
-  ExprNode$UNOP.prototype.dynamicGet_slmq2v$ = ExprNode.prototype.dynamicGet_slmq2v$;
-  ExprNode$UNOP.prototype.dynamicSet_b48med$ = ExprNode.prototype.dynamicSet_b48med$;
-  ExprNode$UNOP.prototype.dynamicCall_ihivg6$ = ExprNode.prototype.dynamicCall_ihivg6$;
-  ExprNode$UNOP.prototype.dynamicCallMethod_w3s0wy$ = ExprNode.prototype.dynamicCallMethod_w3s0wy$;
+  ExprNode$UNOP.prototype.toDynamicString_mzud1t$ = ExprNode.prototype.toDynamicString_mzud1t$;
+  Object.defineProperty(ExprNode$Token.prototype, 'posContext', Object.getOwnPropertyDescriptor(TokenContext.prototype, 'posContext'));
+  ExprNode$Token.prototype.exception_61zpoe$ = TokenContext.prototype.exception_61zpoe$;
   Filter$Ctx.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
   Filter$Ctx.prototype.toDynamicBool_mzud1t$ = DynamicContext.prototype.toDynamicBool_mzud1t$;
   Filter$Ctx.prototype.toDynamicInt_mzud1t$ = DynamicContext.prototype.toDynamicInt_mzud1t$;
@@ -9152,33 +10953,37 @@
   Filter$Ctx.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
   Filter$Ctx.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
   Filter$Ctx.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
-  Tag.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
+  Tag.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
+  Tag.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
+  Tag.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
+  Tag.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
+  Tag.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
   Tag.prototype.toDynamicBool_mzud1t$ = DynamicContext.prototype.toDynamicBool_mzud1t$;
   Tag.prototype.toDynamicInt_mzud1t$ = DynamicContext.prototype.toDynamicInt_mzud1t$;
   Tag.prototype.toDynamicList_mzud1t$ = DynamicContext.prototype.toDynamicList_mzud1t$;
-  Tag.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
-  Tag.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
-  Tag.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
-  Tag.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
-  Tag.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
-  Template$Scope.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
+  Tag.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
+  Template$Scope.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
+  Template$Scope.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
+  Template$Scope.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
+  Template$Scope.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
+  Template$Scope.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
   Template$Scope.prototype.toDynamicBool_mzud1t$ = DynamicContext.prototype.toDynamicBool_mzud1t$;
   Template$Scope.prototype.toDynamicInt_mzud1t$ = DynamicContext.prototype.toDynamicInt_mzud1t$;
   Template$Scope.prototype.toDynamicList_mzud1t$ = DynamicContext.prototype.toDynamicList_mzud1t$;
-  Template$Scope.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
-  Template$Scope.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
-  Template$Scope.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
-  Template$Scope.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
-  Template$Scope.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
-  Template$EvalContext.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
+  Template$Scope.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
+  Template$EvalContext.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
+  Template$EvalContext.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
+  Template$EvalContext.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
+  Template$EvalContext.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
+  Template$EvalContext.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
   Template$EvalContext.prototype.toDynamicBool_mzud1t$ = DynamicContext.prototype.toDynamicBool_mzud1t$;
   Template$EvalContext.prototype.toDynamicInt_mzud1t$ = DynamicContext.prototype.toDynamicInt_mzud1t$;
   Template$EvalContext.prototype.toDynamicList_mzud1t$ = DynamicContext.prototype.toDynamicList_mzud1t$;
-  Template$EvalContext.prototype.dynamicLength_mzud1t$ = DynamicContext.prototype.dynamicLength_mzud1t$;
-  Template$EvalContext.prototype.dynamicGet_slmq2v$ = DynamicContext.prototype.dynamicGet_slmq2v$;
-  Template$EvalContext.prototype.dynamicSet_b48med$ = DynamicContext.prototype.dynamicSet_b48med$;
-  Template$EvalContext.prototype.dynamicCall_ihivg6$ = DynamicContext.prototype.dynamicCall_ihivg6$;
-  Template$EvalContext.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
+  Template$EvalContext.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
+  Object.defineProperty(TokenContext$Mixin.prototype, 'posContext', Object.getOwnPropertyDescriptor(TokenContext.prototype, 'posContext'));
+  TokenContext$Mixin.prototype.exception_61zpoe$ = TokenContext.prototype.exception_61zpoe$;
+  Object.defineProperty(Token.prototype, 'posContext', Object.getOwnPropertyDescriptor(TokenContext.prototype, 'posContext'));
+  Token.prototype.exception_61zpoe$ = TokenContext.prototype.exception_61zpoe$;
   Dynamic2.prototype.toDynamicString_mzud1t$ = DynamicContext.prototype.toDynamicString_mzud1t$;
   Dynamic2.prototype.toDynamicBool_mzud1t$ = DynamicContext.prototype.toDynamicBool_mzud1t$;
   Dynamic2.prototype.toDynamicInt_mzud1t$ = DynamicContext.prototype.toDynamicInt_mzud1t$;
@@ -9190,8 +10995,10 @@
   Dynamic2.prototype.dynamicCallMethod_w3s0wy$ = DynamicContext.prototype.dynamicCallMethod_w3s0wy$;
   DynamicShape.prototype.register_qtrk0b$ = DynamicShapeRegister.prototype.register_qtrk0b$;
   DynamicShape.prototype.register_cmncrc$ = DynamicShapeRegister.prototype.register_cmncrc$;
-  debugPrintln = new extraProperty(void 0, debugPrintln$lambda);
-  KORTE_VERSION = '1.0.0';
+  debugPrintln = new extraProperty(debugPrintln$lambda, void 0, debugPrintln$lambda_0);
+  formatRegex = Regex_init('%([-]?\\d+)?(\\w)');
+  charToEntity = linkedMapOf([to(toBoxedChar(34), '&quot;'), to(toBoxedChar(39), '&apos;'), to(toBoxedChar(60), '&lt;'), to(toBoxedChar(62), '&gt;'), to(toBoxedChar(38), '&amp;')]);
+  KORTE_VERSION = '1.1.0';
   Mapper2 = new JsObjectMapper2();
   Kotlin.defineModule('korte', _);
   return _;

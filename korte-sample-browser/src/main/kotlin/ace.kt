@@ -1,4 +1,6 @@
 import org.khronos.webgl.*
+import org.w3c.dom.Element
+import org.w3c.dom.HTMLElement
 import org.w3c.dom.events.*
 
 data class AceCompletion(
@@ -41,6 +43,7 @@ fun Selection.onChangeCursor(callback: (event: Event, selection: Selection) -> U
 }
 
 external class Editor {
+    val container: Element
     val selection: Selection
     val session: EditSession
     fun setTheme(theme: String)
